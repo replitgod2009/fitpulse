@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dashboard — FitPulse</title>
+<link rel="stylesheet" href="css/style.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="app-body">
+  <aside class="sidebar">
+    <div class="logo">💪 FitPulse</div>
+    <nav>
+      <a href="dashboard.html" class="active">🏠 Dashboard</a>
+      <a href="planner.html">📅 Planner</a>
+      <a href="library.html">📚 Library</a>
+      <a href="progress.html">📊 Progress</a>
+      <a href="leaderboard.html">🏆 Leaderboard</a>
+    </nav>
+    <button id="logoutBtn" class="btn-ghost logout">Logout</button>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <h1>Welcome back, <span id="userName">User</span> 👋</h1>
+      <div class="stats-mini">
+        <div class="stat-pill">🔥 Streak: <b id="streakVal">0</b></div>
+        <div class="stat-pill">⭐ Points: <b id="pointsVal">0</b></div>
+      </div>
+    </header>
+
+    <section class="cards">
+      <div class="card">
+        <h3>Today's Calories</h3>
+        <p class="big-num" id="todayCal">0</p>
+        <p class="muted">kcal burned</p>
+      </div>
+      <div class="card">
+        <h3>Workout Minutes</h3>
+        <p class="big-num" id="todayMin">0</p>
+        <p class="muted">minutes today</p>
+      </div>
+      <div class="card">
+        <h3>Water Intake</h3>
+        <p class="big-num" id="waterVal">0</p>
+        <p class="muted">glasses</p>
+      </div>
+      <div class="card">
+        <h3>Steps</h3>
+        <p class="big-num" id="stepsVal">0</p>
+        <p class="muted">today</p>
+      </div>
+      <div class="card">
+        <h3>Sleep</h3>
+        <p class="big-num" id="sleepVal">0</p>
+        <p class="muted" id="moodVal">hours</p>
+      </div>
+      <div class="card">
+        <h3>Badges</h3>
+        <p class="big-num" id="badgeCount">0</p>
+        <p class="muted">earned</p>
+      </div>
+    </section>
+
+    <section class="panel" id="recPanel">
+      <h3>Recommended for you 🎯 <span class="muted" id="recGoal"></span></h3>
+      <div id="recBody"></div>
+    </section>
+
+    <section class="grid-2">
+      <div class="panel">
+        <h3>Weekly Calories</h3>
+        <canvas id="weeklyChart"></canvas>
+      </div>
+
+      <div class="panel">
+        <h3>Quick Log</h3>
+        <form id="quickLogForm">
+          <label>Water (glasses)</label>
+          <input type="number" id="qWater" min="0" max="20" value="0"/>
+          <label>Sleep (hours)</label>
+          <input type="number" id="qSleep" min="0" max="24" step="0.5" value="7"/>
+          <label>Steps</label>
+          <input type="number" id="qSteps" min="0" value="0"/>
+          <label>Mood</label>
+          <select id="qMood">
+            <option value="great">Great</option>
+            <option value="good" selected>Good</option>
+            <option value="okay">Okay</option>
+            <option value="tired">Tired</option>
+          </select>
+          <button class="btn-primary" type="submit">Log Activity</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

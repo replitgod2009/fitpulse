@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Login / Register — FitPulse</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body class="auth-body">
+  <div class="auth-container">
+    <div class="auth-brand">
+      <h1>💪 FitPulse</h1>
+      <p>Your all-in-one fitness companion</p>
+    </div>
+
+    <div class="auth-tabs">
+      <button id="tabLogin" class="tab active">Login</button>
+      <button id="tabRegister" class="tab">Register</button>
+    </div>
+
+    <!-- LOGIN -->
+    <form id="loginForm" class="auth-form active">
+      <input type="email" id="loginEmail" placeholder="Email" required/>
+      <input type="password" id="loginPassword" placeholder="Password" required/>
+      <button type="submit" class="btn-primary">Login</button>
+      <p class="error" id="loginError"></p>
+    </form>
+
+    <!-- REGISTER -->
+    <form id="registerForm" class="auth-form">
+      <input type="text" id="regName" placeholder="Full Name" required/>
+      <input type="email" id="regEmail" placeholder="Email" required/>
+      <input type="password" id="regPassword" placeholder="Password (min 6 chars)" required minlength="6"/>
+      <div class="row">
+        <input type="number" id="regAge" placeholder="Age"/>
+        <input type="number" id="regWeight" placeholder="Weight (kg)"/>
+        <input type="number" id="regHeight" placeholder="Height (cm)"/>
+      </div>
+      <select id="regGoal">
+        <option value="lose_weight">Lose Weight</option>
+        <option value="gain_muscle">Gain Muscle</option>
+        <option value="stay_fit" selected>Stay Fit</option>
+        <option value="endurance">Build Endurance</option>
+      </select>
+      <select id="regActivity">
+        <option value="sedentary">Sedentary</option>
+        <option value="light">Lightly Active</option>
+        <option value="moderate" selected>Moderately Active</option>
+        <option value="active">Active</option>
+        <option value="very_active">Very Active</option>
+      </select>
+      <button type="submit" class="btn-primary">Create Account</button>
+      <p class="error" id="registerError"></p>
+    </form>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

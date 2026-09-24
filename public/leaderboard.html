@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Leaderboard — FitPulse</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body class="app-body">
+  <aside class="sidebar">
+    <div class="logo">💪 FitPulse</div>
+    <nav>
+      <a href="dashboard.html">🏠 Dashboard</a>
+      <a href="planner.html">📅 Planner</a>
+      <a href="library.html">📚 Library</a>
+      <a href="progress.html">📊 Progress</a>
+      <a href="leaderboard.html" class="active">🏆 Leaderboard</a>
+    </nav>
+    <button id="logoutBtn" class="btn-ghost logout">Logout</button>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <h1>Leaderboard 🏆</h1>
+    </header>
+
+    <section class="panel">
+      <div id="podium" class="podium"></div>
+    </section>
+
+    <section class="panel">
+      <table class="leader-table">
+        <thead><tr><th>Rank</th><th>Name</th><th>Points</th><th>Streak</th></tr></thead>
+        <tbody id="leaderBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/leaderboard.js"></script>
+</body>
+</html>

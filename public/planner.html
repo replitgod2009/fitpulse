@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Planner — FitPulse</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body class="app-body">
+  <aside class="sidebar">
+    <div class="logo">💪 FitPulse</div>
+    <nav>
+      <a href="dashboard.html">🏠 Dashboard</a>
+      <a href="planner.html" class="active">📅 Planner</a>
+      <a href="library.html">📚 Library</a>
+      <a href="progress.html">📊 Progress</a>
+      <a href="leaderboard.html">🏆 Leaderboard</a>
+    </nav>
+    <button id="logoutBtn" class="btn-ghost logout">Logout</button>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <h1>Daily Workout Planner 📅</h1>
+    </header>
+
+    <section class="panel">
+      <h3>Create Workout</h3>
+      <form id="workoutForm">
+        <input type="text" id="wName" placeholder="Workout name (e.g., Morning Cardio)" required/>
+        <div id="exerciseList"></div>
+        <button type="button" id="addExercise" class="btn-ghost">+ Add Exercise</button>
+        <button type="submit" class="btn-primary">Save Workout</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h3>Your Workouts</h3>
+      <div id="workoutsContainer" class="workouts-list"></div>
+    </section>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/planner.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Exercise Library — FitPulse</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body class="app-body">
+  <aside class="sidebar">
+    <div class="logo">💪 FitPulse</div>
+    <nav>
+      <a href="dashboard.html">🏠 Dashboard</a>
+      <a href="planner.html">📅 Planner</a>
+      <a href="library.html" class="active">📚 Library</a>
+      <a href="progress.html">📊 Progress</a>
+      <a href="leaderboard.html">🏆 Leaderboard</a>
+    </nav>
+    <button id="logoutBtn" class="btn-ghost logout">Logout</button>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <h1>Exercise Library 📚</h1>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <a href="planner.html" id="queueLink" class="btn-primary" style="display:none"></a>
+        <input type="text" id="searchEx" placeholder="Search exercises..." class="search"/>
+      </div>
+    </header>
+
+    <div class="filters" id="filters">
+      <button class="chip active" data-cat="all">All</button>
+      <button class="chip" data-cat="cardio">Cardio</button>
+      <button class="chip" data-cat="strength">Strength</button>
+      <button class="chip" data-cat="yoga">Yoga</button>
+      <button class="chip" data-cat="hiit">HIIT</button>
+      <button class="chip" data-cat="core">Core</button>
+    </div>
+
+    <section id="exerciseGrid" class="exercise-grid"></section>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/library.js"></script>
+</body>
+</html>

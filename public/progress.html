@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Progress — FitPulse</title>
+<link rel="stylesheet" href="css/style.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="app-body">
+  <aside class="sidebar">
+    <div class="logo">💪 FitPulse</div>
+    <nav>
+      <a href="dashboard.html">🏠 Dashboard</a>
+      <a href="planner.html">📅 Planner</a>
+      <a href="library.html">📚 Library</a>
+      <a href="progress.html" class="active">📊 Progress</a>
+      <a href="leaderboard.html">🏆 Leaderboard</a>
+    </nav>
+    <button id="logoutBtn" class="btn-ghost logout">Logout</button>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <h1>Your Progress 📊</h1>
+    </header>
+
+    <section class="grid-2">
+      <div class="panel">
+        <h3>Calories Over Time</h3>
+        <canvas id="calChart"></canvas>
+      </div>
+      <div class="panel">
+        <h3>Workout Duration (min)</h3>
+        <canvas id="durChart"></canvas>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h3>Your Badges 🏅</h3>
+      <div id="badgesContainer" class="badges"></div>
+    </section>
+
+    <section class="panel">
+      <h3>Recent Activities</h3>
+      <div id="activitiesList"></div>
+    </section>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/progress.js"></script>
+</body>
+</html>

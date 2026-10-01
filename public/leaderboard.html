@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Leaderboard — FitPulse</title>
-<link rel="stylesheet" href="css/style.css"/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💪</text></svg>" />
+<link rel="stylesheet" href="/css/style.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 </head>
 <body class="app-body">
   <aside class="sidebar">
     <div class="logo">💪 FitPulse</div>
     <nav>
-      <a href="dashboard.html">🏠 Dashboard</a>
-      <a href="planner.html">📅 Planner</a>
-      <a href="library.html">📚 Library</a>
-      <a href="progress.html">📊 Progress</a>
-      <a href="leaderboard.html" class="active">🏆 Leaderboard</a>
+      <a href="/dashboard.html">🏠 Dashboard</a>
+      <a href="/planner.html">📅 Planner</a>
+      <a href="/library.html">📚 Library</a>
+      <a href="/progress.html">📊 Progress</a>
+      <a href="/leaderboard.html" class="active">🏆 Leaderboard</a>
     </nav>
     <button id="logoutBtn" class="btn-ghost logout">Logout</button>
   </aside>
@@ -30,13 +32,15 @@
 
     <section class="panel">
       <table class="leader-table">
-        <thead><tr><th>Rank</th><th>Name</th><th>Points</th><th>Streak</th></tr></thead>
+        <thead>
+          <tr><th>Rank</th><th>Name</th><th>Points</th><th>Streak</th></tr>
+        </thead>
         <tbody id="leaderBody"></tbody>
       </table>
     </section>
   </main>
 
-  <script src="js/api.js"></script>
-  <script src="js/leaderboard.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/leaderboard.js"></script>
 </body>
 </html>

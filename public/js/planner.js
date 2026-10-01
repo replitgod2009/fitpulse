@@ -1,12 +1,12 @@
 api.requireAuth();
+
 const exerciseList = document.getElementById('exerciseList');
-let workoutChart;
 
 function addExerciseRow(name = '', category = 'cardio', duration = 20, calories = 150) {
   const row = document.createElement('div');
   row.className = 'exercise-row';
   row.innerHTML = `
-    <input placeholder="Exercise name" value="${esc(name)}" class="ex-name" required/>
+    <input placeholder="Exercise name" value="${esc(name)}" class="ex-name" required />
     <select class="ex-cat">
       <option value="cardio" ${category === 'cardio' ? 'selected' : ''}>Cardio</option>
       <option value="strength" ${category === 'strength' ? 'selected' : ''}>Strength</option>
@@ -14,29 +14,30 @@ function addExerciseRow(name = '', category = 'cardio', duration = 20, calories 
       <option value="hiit" ${category === 'hiit' ? 'selected' : ''}>HIIT</option>
       <option value="core" ${category === 'core' ? 'selected' : ''}>Core</option>
     </select>
-    <input type="number" class="ex-dur" placeholder="Min" value="${duration}" min="1" required/>
-    <input type="number" class="ex-cal" placeholder="Kcal" value="${calories}" min="0" required/>
+    <input type="number" class="ex-dur" placeholder="Min" value="${duration}" min="1" required />
+    <input type="number" class="ex-cal" placeholder="Kcal" value="${calories}" min="0" required />
     <button type="button" class="remove-btn">×</button>
   `;
   row.querySelector('.remove-btn').addEventListener('click', () => row.remove());
   exerciseList.appendChild(row);
 }
 
-document.getElementById('addExercise').addEventListener('click', () => addExerciseRow());
-addExerciseRow();
+// Load queued exercises from library or dashboard
+(function prefillFromQueue() {
+  const queue = JSON.parse(localStorage.getItem('fp_queued_exercises') || 'null');
+  const queuedName = localStorage.getItem('fp_queued_name') || '';
 
-// Exercises sent from the Library or a recommended plan
-try {
-  const queued = JSON.parse(localStorage.getItem('fp_queue') || '[]');
-  if (queued.length) {
-    exerciseList.innerHTML = '';
-    queued.forEach(x => addExerciseRow(x.name, x.category, x.duration, x.calories));
-    const qn = localStorage.getItem('fp_queue_name');
-    if (qn) document.getElementById('wName').value = qn;
+  if (queue && queue.length) {
+    if (queuedName) document.getElementById('wName').value = queuedName;
+    queue.forEach(ex => addExerciseRow(ex.name, ex.category, ex.duration, ex.calories));
+    localStorage.removeItem('fp_queued_exercises');
+    localStorage.removeItem('fp_queued_name');
+  } else {
+    addExerciseRow();
   }
-} catch (e) { /* ignore bad data */ }
-localStorage.removeItem('fp_queue');
-localStorage.removeItem('fp_queue_name');
+})();
+
+document.getElementById('addExercise').addEventListener('click', () => addExerciseRow());
 
 document.getElementById('workoutForm').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -60,7 +61,9 @@ document.getElementById('workoutForm').addEventListener('submit', async (e) => {
     exerciseList.innerHTML = '';
     addExerciseRow();
     loadWorkouts();
-  } catch (err) { alert(err.message); }
+  } catch (err) {
+    alert(err.message);
+  }
 });
 
 async function loadWorkouts() {
@@ -73,7 +76,7 @@ async function loadWorkouts() {
     }
     container.innerHTML = workouts.map(w => `
       <div class="workout-item ${w.completed ? 'done' : ''}">
-        <h4>${esc(w.notes || 'Workout')} ${w.completed ? '✅' : ''}</h4>
+        <h4>${esc(w.notes) || 'Workout'} ${w.completed ? '✅' : ''}</h4>
         <div class="meta">${new Date(w.date).toLocaleString()} · ${w.totalDuration} min · ${w.totalCalories} kcal</div>
         ${w.exercises.map(ex => `<div class="ex">• ${esc(ex.name)} (${esc(ex.category)}) — ${ex.duration} min, ${ex.calories} kcal</div>`).join('')}
         <div style="margin-top:12px; display:flex; gap:8px">
@@ -82,7 +85,9 @@ async function loadWorkouts() {
         </div>
       </div>
     `).join('');
-  } catch (err) { console.error(err); }
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 window.completeWorkout = async (id) => {
@@ -90,7 +95,9 @@ window.completeWorkout = async (id) => {
     const res = await api.patch(`/workouts/${id}/complete`);
     alert(`Great job! 🔥 Streak: ${res.user.streak} | Points: ${res.user.totalPoints}`);
     loadWorkouts();
-  } catch (err) { alert(err.message); }
+  } catch (err) {
+    alert(err.message);
+  }
 };
 
 window.deleteWorkout = async (id) => {
@@ -98,7 +105,9 @@ window.deleteWorkout = async (id) => {
   try {
     await api.del(`/workouts/${id}`);
     loadWorkouts();
-  } catch (err) { alert(err.message); }
+  } catch (err) {
+    alert(err.message);
+  }
 };
 
 loadWorkouts();

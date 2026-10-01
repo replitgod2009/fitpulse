@@ -22,14 +22,18 @@ tabRegister.addEventListener('click', () => showTab('register'));
 
 if (window.location.hash === '#register') showTab('register');
 
-// If already logged in
-if (api.token()) {
-  api.get('/auth/me')
-    .then(() => { window.location.href = 'dashboard.html'; })
-    .catch(() => api.clearAuth());
-}
+// If already logged in, verify token & redirect
+(async () => {
+  if (api.token()) {
+    try {
+      await api.get('/auth/me');
+      window.location.href = '/dashboard.html';
+    } catch {
+      api.clearAuth();
+    }
+  }
+})();
 
-// Login
 loginForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const errEl = document.getElementById('loginError');
@@ -40,13 +44,12 @@ loginForm.addEventListener('submit', async (e) => {
       password: document.getElementById('loginPassword').value
     });
     api.saveAuth(data.token, data.user);
-    window.location.href = 'dashboard.html';
+    window.location.href = '/dashboard.html';
   } catch (err) {
     errEl.textContent = err.message;
   }
 });
 
-// Register
 registerForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const errEl = document.getElementById('registerError');
@@ -63,7 +66,7 @@ registerForm.addEventListener('submit', async (e) => {
       activityLevel: document.getElementById('regActivity').value
     });
     api.saveAuth(data.token, data.user);
-    window.location.href = 'dashboard.html';
+    window.location.href = '/dashboard.html';
   } catch (err) {
     errEl.textContent = err.message;
   }

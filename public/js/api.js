@@ -1,8 +1,15 @@
+// API base — relative URL works on localhost AND Render
 const API_URL = '/api';
 
-// Escape user-provided text before putting it in innerHTML
-function esc(v) {
-  return String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+// HTML escape helper — prevents XSS
+function esc(str) {
+  if (str == null) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 const api = {
@@ -18,7 +25,7 @@ const api = {
     localStorage.removeItem('fp_user');
   },
   requireAuth() {
-    if (!this.token()) window.location.href = 'login.html';
+    if (!this.token()) window.location.href = '/login.html';
   },
 
   async request(endpoint, options = {}) {
@@ -28,11 +35,11 @@ const api = {
 
     const res = await fetch(`${API_URL}${endpoint}`, { ...options, headers });
     const data = await res.json().catch(() => ({}));
+
     if (res.status === 401) {
-      // expired / invalid token: clear it and send to login
       this.clearAuth();
-      if (!window.location.pathname.endsWith('login.html')) window.location.href = 'login.html';
-      throw new Error(data.msg || 'Session expired');
+      window.location.href = '/login.html';
+      throw new Error('Session expired');
     }
     if (!res.ok) throw new Error(data.msg || 'Request failed');
     return data;
@@ -45,11 +52,13 @@ const api = {
   del: (e) => api.request(e, { method: 'DELETE' }),
 };
 
-// Logout button handler
+// Auto-bind logout button if present
 document.addEventListener('DOMContentLoaded', () => {
   const btn = document.getElementById('logoutBtn');
-  if (btn) btn.addEventListener('click', () => {
-    api.clearAuth();
-    window.location.href = 'login.html';
-  });
+  if (btn) {
+    btn.addEventListener('click', () => {
+      api.clearAuth();
+      window.location.href = '/login.html';
+    });
+  }
 });

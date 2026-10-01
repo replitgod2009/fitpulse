@@ -2,45 +2,39 @@ api.requireAuth();
 let weeklyChart;
 
 const GOAL_PLANS = {
-  lose_weight: { label: 'Lose Weight', name: 'Fat Burn Circuit', exercises: [
-    { name: 'Running', category: 'cardio', duration: 30, calories: 300 },
+  lose_weight: [
     { name: 'Jump Rope', category: 'cardio', duration: 15, calories: 200 },
     { name: 'Burpees', category: 'hiit', duration: 10, calories: 150 },
     { name: 'Mountain Climbers', category: 'hiit', duration: 8, calories: 100 },
-    { name: 'Plank', category: 'core', duration: 5, calories: 40 } ] },
-  gain_muscle: { label: 'Gain Muscle', name: 'Muscle Builder', exercises: [
+    { name: 'Walking', category: 'cardio', duration: 30, calories: 120 },
+    { name: 'Plank', category: 'core', duration: 5, calories: 40 }
+  ],
+  gain_muscle: [
     { name: 'Bench Press', category: 'strength', duration: 15, calories: 120 },
-    { name: 'Squats', category: 'strength', duration: 12, calories: 100 },
     { name: 'Deadlifts', category: 'strength', duration: 20, calories: 180 },
     { name: 'Pull-ups', category: 'strength', duration: 10, calories: 90 },
-    { name: 'Push-ups', category: 'strength', duration: 10, calories: 80 } ] },
-  stay_fit: { label: 'Stay Fit', name: 'Balanced Day', exercises: [
-    { name: 'Walking', category: 'cardio', duration: 30, calories: 120 },
     { name: 'Squats', category: 'strength', duration: 12, calories: 100 },
-    { name: 'Push-ups', category: 'strength', duration: 10, calories: 80 },
+    { name: 'Lunges', category: 'strength', duration: 12, calories: 100 }
+  ],
+  stay_fit: [
+    { name: 'Running', category: 'cardio', duration: 30, calories: 300 },
     { name: 'Sun Salutation', category: 'yoga', duration: 20, calories: 90 },
-    { name: 'Plank', category: 'core', duration: 5, calories: 40 } ] },
-  endurance: { label: 'Build Endurance', name: 'Endurance Base', exercises: [
+    { name: 'Push-ups', category: 'strength', duration: 10, calories: 80 },
+    { name: 'Plank', category: 'core', duration: 5, calories: 40 },
+    { name: 'Walking', category: 'cardio', duration: 30, calories: 120 }
+  ],
+  endurance: [
+    { name: 'Running', category: 'cardio', duration: 45, calories: 450 },
     { name: 'Cycling', category: 'cardio', duration: 45, calories: 400 },
-    { name: 'Swimming', category: 'cardio', duration: 40, calories: 350 },
     { name: 'Rowing', category: 'cardio', duration: 25, calories: 250 },
-    { name: 'Running', category: 'cardio', duration: 30, calories: 300 } ] }
+    { name: 'Swimming', category: 'cardio', duration: 40, calories: 350 },
+    { name: 'Tabata Sprints', category: 'hiit', duration: 20, calories: 250 }
+  ]
 };
 
-function renderRecommendation(goal) {
-  const plan = GOAL_PLANS[goal] || GOAL_PLANS.stay_fit;
-  const mins = plan.exercises.reduce((s, x) => s + x.duration, 0);
-  const kcal = plan.exercises.reduce((s, x) => s + x.calories, 0);
-  document.getElementById('recGoal').textContent = `· goal: ${plan.label}`;
-  document.getElementById('recBody').innerHTML = `
-    <h4>${esc(plan.name)} <span class="muted">· ${mins} min · ${kcal} kcal</span></h4>
-    <div class="rec-list">${plan.exercises.map(x => `<span class="chip">${esc(x.name)}</span>`).join('')}</div>
-    <button class="btn-primary" id="useRec">Use this plan →</button>`;
-  document.getElementById('useRec').addEventListener('click', () => {
-    localStorage.setItem('fp_queue', JSON.stringify(plan.exercises));
-    localStorage.setItem('fp_queue_name', plan.name);
-    window.location.href = 'planner.html';
-  });
+function removeSkeleton(el, value) {
+  el.classList.remove('skeleton');
+  el.textContent = value;
 }
 
 async function loadDashboard() {
@@ -51,27 +45,22 @@ async function loadDashboard() {
       api.get('/activities')
     ]);
 
-    document.getElementById('userName').textContent = user.name.split(' ')[0];
+    document.getElementById('userName').textContent = esc(user.name.split(' ')[0]);
     document.getElementById('streakVal').textContent = user.streak || 0;
     document.getElementById('pointsVal').textContent = user.totalPoints || 0;
     document.getElementById('badgeCount').textContent = (user.badges || []).length;
 
-    // Today's stats
     const today = new Date().toDateString();
     const todayWorkouts = workouts.filter(w => new Date(w.date).toDateString() === today);
     const todayCal = todayWorkouts.reduce((s, w) => s + (w.totalCalories || 0), 0);
     const todayMin = todayWorkouts.reduce((s, w) => s + (w.totalDuration || 0), 0);
     const todayActivity = activities.find(a => new Date(a.date).toDateString() === today);
 
-    document.getElementById('todayCal').textContent = todayCal;
-    document.getElementById('todayMin').textContent = todayMin;
-    document.getElementById('waterVal').textContent = todayActivity?.waterIntake || 0;
-    document.getElementById('stepsVal').textContent = todayActivity?.steps || 0;
-    document.getElementById('sleepVal').textContent = todayActivity?.sleepHours || 0;
-    document.getElementById('moodVal').textContent = todayActivity ? `hours · mood: ${todayActivity.mood}` : 'hours';
-    renderRecommendation(user.fitnessGoal);
+    removeSkeleton(document.getElementById('todayCal'), todayCal);
+    removeSkeleton(document.getElementById('todayMin'), todayMin);
+    removeSkeleton(document.getElementById('waterVal'), todayActivity?.waterIntake || 0);
+    removeSkeleton(document.getElementById('badgeCount'), (user.badges || []).length);
 
-    // Prefill quick log if exists
     if (todayActivity) {
       document.getElementById('qWater').value = todayActivity.waterIntake || 0;
       document.getElementById('qSleep').value = todayActivity.sleepHours || 7;
@@ -79,15 +68,43 @@ async function loadDashboard() {
       document.getElementById('qMood').value = todayActivity.mood || 'good';
     }
 
+    renderRecommendations(user.fitnessGoal);
     renderWeeklyChart(workouts);
   } catch (err) {
     console.error(err);
   }
 }
 
+function renderRecommendations(goal) {
+  const plan = GOAL_PLANS[goal] || GOAL_PLANS.stay_fit;
+  const container = document.getElementById('recommendations');
+  if (!container) return;
+
+  container.innerHTML = plan.map(ex => `
+    <div class="rec-card">
+      <h4>${esc(ex.name)}</h4>
+      <div class="meta">${esc(ex.category)} · ${ex.duration} min · ${ex.calories} kcal</div>
+    </div>
+  `).join('') + `
+    <div class="rec-card" style="display:flex;align-items:center;justify-content:center;cursor:pointer;background:var(--gradient-soft);border-color:var(--primary)"
+         onclick='useRecommendedPlan(${JSON.stringify(plan).replace(/'/g, "&#39;")}, ${JSON.stringify(goal)})'>
+      <div style="text-align:center">
+        <div style="font-size:1.4rem;margin-bottom:4px">✨</div>
+        <b>Use this plan →</b>
+      </div>
+    </div>
+  `;
+}
+
+window.useRecommendedPlan = (plan, goal) => {
+  localStorage.setItem('fp_queued_exercises', JSON.stringify(plan));
+  const names = { lose_weight: 'Weight Loss Plan', gain_muscle: 'Muscle Building Plan', stay_fit: 'Stay Fit Plan', endurance: 'Endurance Builder' };
+  localStorage.setItem('fp_queued_name', names[goal] || 'My Workout');
+  window.location.href = '/planner.html';
+};
+
 function renderWeeklyChart(workouts) {
-  const days = [];
-  const cals = [];
+  const days = [], cals = [];
   for (let i = 6; i >= 0; i--) {
     const d = new Date();
     d.setDate(d.getDate() - i);
@@ -107,11 +124,20 @@ function renderWeeklyChart(workouts) {
       datasets: [{
         label: 'Calories',
         data: cals,
-        backgroundColor: 'rgba(124,58,237,0.7)',
+        backgroundColor: (context) => {
+          const chart = context.chart;
+          const { ctx, chartArea } = chart;
+          if (!chartArea) return 'rgba(124,58,237,0.7)';
+          const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+          gradient.addColorStop(0, 'rgba(124,58,237,0.3)');
+          gradient.addColorStop(1, 'rgba(34,211,238,0.9)');
+          return gradient;
+        },
         borderRadius: 8
       }]
     },
     options: {
+      responsive: true,
       plugins: { legend: { display: false } },
       scales: {
         y: { ticks: { color: '#8892a8' }, grid: { color: '#222c46' } },

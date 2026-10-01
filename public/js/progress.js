@@ -8,7 +8,6 @@ async function loadProgress() {
       api.get('/activities')
     ]);
 
-    // Sort chronologically
     const sorted = [...workouts].sort((a, b) => new Date(a.date) - new Date(b.date));
     const labels = sorted.map(w => new Date(w.date).toLocaleDateString());
     const calData = sorted.map(w => w.totalCalories || 0);
@@ -23,7 +22,9 @@ async function loadProgress() {
           data: calData,
           borderColor: '#a855f7',
           backgroundColor: 'rgba(168,85,247,0.15)',
-          fill: true, tension: 0.35, pointRadius: 4
+          fill: true,
+          tension: 0.35,
+          pointRadius: 4
         }]
       },
       options: {
@@ -44,7 +45,9 @@ async function loadProgress() {
           data: durData,
           borderColor: '#22d3ee',
           backgroundColor: 'rgba(34,211,238,0.15)',
-          fill: true, tension: 0.35, pointRadius: 4
+          fill: true,
+          tension: 0.35,
+          pointRadius: 4
         }]
       },
       options: {
@@ -56,13 +59,11 @@ async function loadProgress() {
       }
     });
 
-    // Badges
     const badges = user.badges || [];
     document.getElementById('badgesContainer').innerHTML = badges.length
-      ? badges.map(b => `<div class="badge gold">🏅 ${esc(b)}</div>`).join('')
+      ? badges.map(b => `<div class="badge-item gold">🏅 ${esc(b)}</div>`).join('')
       : '<p class="muted">No badges yet. Complete workouts to earn them!</p>';
 
-    // Activities
     document.getElementById('activitiesList').innerHTML = activities.length
       ? activities.map(a => `
         <div class="activity-row">
@@ -70,11 +71,13 @@ async function loadProgress() {
           <div><span class="k">Water</span><br/>${a.waterIntake || 0} glasses</div>
           <div><span class="k">Sleep</span><br/>${a.sleepHours || 0} hrs</div>
           <div><span class="k">Steps</span><br/>${a.steps || 0}</div>
-          <div><span class="k">Mood</span><br/>${esc(a.mood || '-')}</div>
+          <div><span class="k">Mood</span><br/>${esc(a.mood) || '-'}</div>
         </div>
       `).join('')
       : '<p class="muted">No activities logged yet.</p>';
-  } catch (err) { console.error(err); }
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 loadProgress();

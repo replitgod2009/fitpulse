@@ -1,61 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>FitPulse — Your Fitness Companion</title>
-<link rel="stylesheet" href="css/style.css"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FitPulse — Transform Your Fitness Journey</title>
+<meta name="description" content="FitPulse — track workouts, build streaks, hit your goals. Your all-in-one fitness companion." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💪</text></svg>" />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
-<body class="landing">
-  <nav class="navbar">
-    <div class="logo">💪 FitPulse</div>
-    <div class="nav-links">
-      <a href="login.html" class="btn-ghost">Login</a>
-      <a href="login.html#register" class="btn-primary">Get Started</a>
+<body>
+
+<div id="cursor-glow"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="/" class="logo">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="url(#logoGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <defs>
+        <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#7c3aed"/>
+          <stop offset="100%" stop-color="#22d3ee"/>
+        </linearGradient>
+      </defs>
+      <path d="M6.5 6.5h11v11h-11z"/>
+      <path d="M3 9v6M21 9v6"/>
+    </svg>
+    <span class="logo-text">FitPulse</span>
+  </a>
+
+  <ul class="nav-menu">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How it Works</a></li>
+    <li><a href="#stats">Community</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <a href="/login.html" class="btn-ghost">Login</a>
+    <a href="/login.html#register" class="btn-primary">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+
+  <div class="hero-content">
+    <span class="badge">🚀 Built for SIH 2025 · Fitness &amp; Sports</span>
+    <h1>Transform Your <span class="gradient">Fitness Journey</span><br />One Pulse at a Time.</h1>
+    <p class="hero-sub">Plan workouts, track calories, build streaks, and stay motivated — all in one beautifully simple fitness companion.</p>
+    <div class="hero-cta">
+      <a href="/login.html#register" class="btn-primary big">Start Free →</a>
+      <a href="#features" class="btn-ghost big">Explore Features</a>
     </div>
-  </nav>
+    <div class="hero-trust"><span>Trusted by <b>10,000+</b> fitness enthusiasts</span></div>
+  </div>
 
-  <section class="hero">
-    <h1>Transform Your <span class="gradient">Fitness Journey</span></h1>
-    <p>Track workouts, build streaks, hit your goals — all in one place.</p>
-    <a href="login.html#register" class="btn-primary big">Start Free →</a>
-  </section>
+  <div class="hero-mock">
+    <div class="mock-window">
+      <div class="mock-bar">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+      </div>
+      <div class="mock-body">
+        <div class="mock-side">
+          <div class="mock-logo">💪</div>
+          <div class="mock-item active"></div>
+          <div class="mock-item"></div>
+          <div class="mock-item"></div>
+          <div class="mock-item"></div>
+        </div>
+        <div class="mock-main">
+          <div class="mock-stats">
+            <div class="mock-card"><span class="mock-label">Calories</span><span class="mock-num">540</span></div>
+            <div class="mock-card"><span class="mock-label">Streak</span><span class="mock-num">🔥 12</span></div>
+            <div class="mock-card"><span class="mock-label">Points</span><span class="mock-num">⭐ 1,240</span></div>
+          </div>
+          <div class="mock-chart">
+            <div class="bar" style="height:40%"></div>
+            <div class="bar" style="height:65%"></div>
+            <div class="bar" style="height:45%"></div>
+            <div class="bar" style="height:85%"></div>
+            <div class="bar" style="height:60%"></div>
+            <div class="bar active" style="height:95%"></div>
+            <div class="bar" style="height:70%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <section class="features">
-    <div class="feature-card">
-      <div class="icon">🎯</div>
+<!-- LOGO BAND -->
+<section class="logo-band">
+  <p>Built for the next generation of fitness</p>
+  <div class="logo-strip">
+    <span>⭐ National Health Mission</span>
+    <span>⭐ Fit India Movement</span>
+    <span>⭐ Khelo India</span>
+    <span>⭐ Smart India Hackathon</span>
+  </div>
+</section>
+
+<!-- STRIP -->
+<section class="strip">
+  <p>Track every kind of movement</p>
+  <div class="strip-logos">
+    <span>🏃 Running</span><span>🚴 Cycling</span><span>🧘 Yoga</span>
+    <span>🏋️ Strength</span><span>🤸 HIIT</span><span>🏊 Swimming</span>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="section">
+  <div class="section-head">
+    <span class="eyebrow">Features</span>
+    <h2>Everything you need to <span class="gradient">stay fit</span></h2>
+    <p>Powerful tools, distraction-free design. Built for real people with real goals.</p>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature">
+      <div class="f-icon purple"><i data-lucide="target"></i></div>
       <h3>Goal-Based Plans</h3>
-      <p>Choose your fitness goal and get tailored workout recommendations.</p>
+      <p>Pick your goal — lose weight, gain muscle, or build endurance — and get a tailored plan.</p>
     </div>
-    <div class="feature-card">
-      <div class="icon">📅</div>
+    <div class="feature">
+      <div class="f-icon cyan"><i data-lucide="calendar"></i></div>
       <h3>Daily Planner</h3>
-      <p>Plan your week, track completion, and never miss a day.</p>
+      <p>Plan workouts ahead, mark them complete, and never miss a day with smart reminders.</p>
     </div>
-    <div class="feature-card">
-      <div class="icon">🔥</div>
-      <h3>Streaks & Points</h3>
-      <p>Stay motivated with streaks, badges, and progress rewards.</p>
+    <div class="feature">
+      <div class="f-icon orange"><i data-lucide="flame"></i></div>
+      <h3>Streaks &amp; Rewards</h3>
+      <p>Build unbreakable streaks. Earn badges, points, and level up your fitness game.</p>
     </div>
-    <div class="feature-card">
-      <div class="icon">📊</div>
+    <div class="feature">
+      <div class="f-icon green"><i data-lucide="bar-chart-3"></i></div>
       <h3>Visual Progress</h3>
-      <p>Charts show calories, duration, and consistency at a glance.</p>
+      <p>Beautiful charts reveal calorie trends, workout consistency, and personal records.</p>
     </div>
-    <div class="feature-card">
-      <div class="icon">🏆</div>
+    <div class="feature">
+      <div class="f-icon pink"><i data-lucide="trophy"></i></div>
       <h3>Leaderboard</h3>
-      <p>Compete with friends and climb the fitness rankings.</p>
+      <p>Compete with friends, join challenges, and climb the global fitness rankings.</p>
     </div>
-    <div class="feature-card">
-      <div class="icon">💧</div>
-      <h3>Activity Tracking</h3>
-      <p>Log water, sleep, steps, and mood to see the full picture.</p>
+    <div class="feature">
+      <div class="f-icon blue"><i data-lucide="droplets"></i></div>
+      <h3>Lifestyle Tracking</h3>
+      <p>Track water, sleep, steps, and mood — because fitness is more than just workouts.</p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer>
-    <p>© 2025 FitPulse · Built for SIH26196</p>
-  </footer>
+<!-- HOW IT WORKS -->
+<section id="how" class="section how">
+  <div class="section-head">
+    <span class="eyebrow">How it Works</span>
+    <h2>Get fit in <span class="gradient">3 simple steps</span></h2>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Create Profile</h3>
+      <p>Tell us your age, weight, and fitness goal. Takes under 60 seconds.</p>
+    </div>
+    <div class="step-arrow">→</div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>Plan &amp; Workout</h3>
+      <p>Choose from 200+ exercises or let us suggest a plan that fits you.</p>
+    </div>
+    <div class="step-arrow">→</div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Track &amp; Improve</h3>
+      <p>Log your progress, earn streaks, and watch yourself get stronger.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats" class="stats-band">
+  <div class="stat"><span class="stat-num" data-count="10000" data-suffix="+">0</span><span class="stat-label">Active Users</span></div>
+  <div class="stat"><span class="stat-num" data-count="500000" data-suffix="+">0</span><span class="stat-label">Workouts Logged</span></div>
+  <div class="stat"><span class="stat-num" data-count="200" data-suffix="+">0</span><span class="stat-label">Exercises</span></div>
+  <div class="stat"><span class="stat-num" data-count="4.9" data-suffix="★">0</span><span class="stat-label">User Rating</span></div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section">
+  <div class="section-head">
+    <span class="eyebrow">Loved by Users</span>
+    <h2>Real people. <span class="gradient">Real results.</span></h2>
+  </div>
+
+  <div class="testimonials">
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p>"I've tried every fitness app out there. FitPulse is the first one that actually kept me consistent for 3 months straight."</p>
+      <div class="t-user">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Aarav" />
+        <div><b>Aarav S.</b><span>Lost 8 kg in 90 days</span></div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p>"The streak system is genius. I literally can't break my 47-day streak now. It's addictive in the best way."</p>
+      <div class="t-user">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Priya" />
+        <div><b>Priya M.</b><span>Marathon runner</span></div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p>"Simple, beautiful, and it just works. The dashboard charts made me realize I was skipping leg day way too often."</p>
+      <div class="t-user">
+        <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Rohan" />
+        <div><b>Rohan K.</b><span>Gained 6 kg muscle</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section faq">
+  <div class="section-head">
+    <span class="eyebrow">FAQ</span>
+    <h2>Questions? <span class="gradient">Answered.</span></h2>
+  </div>
+
+  <div class="faq-list">
+    <details open>
+      <summary>Is FitPulse free to use?</summary>
+      <p>Yes! The core features — workout planning, tracking, streaks, and progress charts — are 100% free, forever.</p>
+    </details>
+    <details>
+      <summary>Do I need any equipment?</summary>
+      <p>Not at all. FitPulse includes 200+ bodyweight exercises you can do anywhere. We also have gym and home variants.</p>
+    </details>
+    <details>
+      <summary>Does it work offline?</summary>
+      <p>Yes. You can log workouts offline and everything syncs the next time you're online.</p>
+    </details>
+    <details>
+      <summary>Can I track nutrition too?</summary>
+      <p>You can log calories, water intake, and body weight. Full nutrition tracking is coming soon.</p>
+    </details>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="cta-box">
+    <h2>Ready to start your <span class="gradient">transformation?</span></h2>
+    <p>Join thousands of people already getting fit with FitPulse.</p>
+    <a href="/login.html#register" class="btn-primary big">Get Started — It's Free →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="url(#logoGrad2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <defs>
+            <linearGradient id="logoGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#7c3aed"/>
+              <stop offset="100%" stop-color="#22d3ee"/>
+            </linearGradient>
+          </defs>
+          <path d="M6.5 6.5h11v11h-11z"/>
+          <path d="M3 9v6M21 9v6"/>
+        </svg>
+        <span class="logo-text">FitPulse</span>
+      </div>
+      <p>Your all-in-one fitness companion. Built with ❤️ for SIH 2025.</p>
+    </div>
+    <div class="footer-cols">
+      <div>
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">Mobile App</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Careers</a>
+        <a href="#">Contact</a>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <a href="#">Blog</a>
+        <a href="#">Guides</a>
+        <a href="#">Support</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 FitPulse. All rights reserved.</span>
+    <span>Privacy · Terms · Cookies</span>
+  </div>
+</footer>
+
+<a href="/login.html#register" class="mobile-cta">Start Free →</a>
+
+<script>
+  lucide.createIcons();
+
+  // Cursor glow
+  const glow = document.getElementById('cursor-glow');
+  document.addEventListener('mousemove', (e) => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+
+  // Animated counters
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseFloat(el.dataset.count);
+        const suffix = el.dataset.suffix || '';
+        const isDecimal = target % 1 !== 0;
+        let current = 0;
+        const step = target / 60;
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            el.textContent = (isDecimal ? target.toFixed(1) : Math.floor(target).toLocaleString()) + suffix;
+            clearInterval(timer);
+          } else {
+            el.textContent = (isDecimal ? current.toFixed(1) : Math.floor(current).toLocaleString()) + suffix;
+          }
+        }, 20);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
+
+  // Scroll reveal
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.feature, .step, .testimonial, .stat').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+    revealObserver.observe(el);
+  });
+</script>
+
 </body>
 </html>

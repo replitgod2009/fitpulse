@@ -5,14 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Exercise Library — FitPulse</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💪</text></svg>" />
+<link rel="manifest" href="/manifest.json" />
+<meta name="theme-color" content="#7c3aed" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="FitPulse" />
+<link rel="apple-touch-icon" href="/icons/icon-192.png" />
 <link rel="stylesheet" href="/css/style.css" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 </head>
 <body class="app-body">
+
   <aside class="sidebar">
     <div class="logo">💪 FitPulse</div>
     <nav>
       <a href="/dashboard.html">🏠 Dashboard</a>
+      <a href="/ai-trainer.html">🤖 AI Trainer</a>
       <a href="/planner.html">📅 Planner</a>
       <a href="/library.html" class="active">📚 Library</a>
       <a href="/progress.html">📊 Progress</a>
@@ -26,7 +33,9 @@
       <h1>Exercise Library 📚</h1>
       <div style="display:flex;gap:10px;align-items:center">
         <input type="text" id="searchEx" placeholder="Search exercises..." class="search" />
-        <a href="/planner.html" id="openPlannerBtn" class="btn-primary" style="display:none">Open planner (<span id="queueCount">0</span>)</a>
+        <a href="/planner.html" id="openPlannerBtn" class="btn-primary" style="display:none">
+          Open planner (<span id="queueCount">0</span>)
+        </a>
       </div>
     </header>
 
@@ -44,5 +53,6 @@
 
   <script src="/js/api.js"></script>
   <script src="/js/library.js"></script>
+  <script src="/js/pwa.js"></script>
 </body>
 </html>

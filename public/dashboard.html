@@ -5,16 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Dashboard — FitPulse</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💪</text></svg>" />
+<link rel="manifest" href="/manifest.json" />
+<meta name="theme-color" content="#7c3aed" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="FitPulse" />
+<link rel="apple-touch-icon" href="/icons/icon-192.png" />
 <link rel="stylesheet" href="/css/style.css" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
 <body class="app-body">
+
   <aside class="sidebar">
     <div class="logo">💪 FitPulse</div>
     <nav>
       <a href="/dashboard.html" class="active">🏠 Dashboard</a>
+      <a href="/ai-trainer.html">🤖 AI Trainer</a>
       <a href="/planner.html">📅 Planner</a>
       <a href="/library.html">📚 Library</a>
       <a href="/progress.html">📊 Progress</a>
@@ -31,6 +37,18 @@
         <div class="stat-pill">⭐ Points: <b id="pointsVal">0</b></div>
       </div>
     </header>
+
+    <!-- AI TRAINER CARD -->
+    <div class="ai-trainer-card">
+      <div class="ait-left">
+        <div class="ait-emoji">🤖</div>
+        <div>
+          <h3>Meet Pulse — your AI Trainer</h3>
+          <p>Get a personalized workout in under 30 seconds. Just answer 4 quick questions.</p>
+        </div>
+      </div>
+      <a href="/ai-trainer.html" class="btn-primary">Talk to AI Trainer →</a>
+    </div>
 
     <section class="cards">
       <div class="card">
@@ -89,5 +107,6 @@
 
   <script src="/js/api.js"></script>
   <script src="/js/dashboard.js"></script>
+  <script src="/js/pwa.js"></script>
 </body>
 </html>

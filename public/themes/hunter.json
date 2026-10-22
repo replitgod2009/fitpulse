@@ -1,0 +1,44 @@
+{
+  "id": "hunter",
+  "name": "Hunter Mode",
+  "emoji": "⚔",
+  "tagline": "Rise from E-Rank to S-Rank",
+  "colors": {
+    "bg": "#050a1a",
+    "bg2": "#0a1225",
+    "panel": "#0d1833",
+    "panel2": "#132348",
+    "border": "#1e3a5f",
+    "text": "#e0e7ff",
+    "muted": "#7a8bb5",
+    "primary": "#3b82f6",
+    "primary2": "#8b5cf6",
+    "accent": "#60a5fa",
+    "gradient": "linear-gradient(135deg, #1e40af 0%, #8b5cf6 100%)"
+  },
+  "background": "grid-glow",
+  "labels": {
+    "welcome": "Welcome back, Hunter",
+    "pointsLabel": "Experience",
+    "streakLabel": "Unbroken",
+    "rankLabel": "Hunter Rank",
+    "questLabel": "Daily Quest",
+    "completeMessage": "Quest complete. You have grown stronger.",
+    "dayOneRank": "E-Rank"
+  },
+  "ranks": [
+    { "minXP": 0, "name": "E-Rank", "emoji": "🥉" },
+    { "minXP": 100, "name": "D-Rank", "emoji": "🥈" },
+    { "minXP": 300, "name": "C-Rank", "emoji": "🥇" },
+    { "minXP": 600, "name": "B-Rank", "emoji": "⚔" },
+    { "minXP": 1000, "name": "A-Rank", "emoji": "🗡" },
+    { "minXP": 2000, "name": "S-Rank", "emoji": "👑" }
+  ],
+  "exerciseNames": {
+    "cardio": "Stamina Trial",
+    "strength": "Strength Quest",
+    "hiit": "Dungeon Raid",
+    "yoga": "Meditation",
+    "core": "Endurance Rune"
+  }
+}

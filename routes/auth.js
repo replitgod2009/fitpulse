@@ -1,58 +1,67 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const database = require('../database');
 const auth = require('../middleware/auth');
 
 const router = express.Router();
-
-const sign = (id) => jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '7d' });
-const safe = (u) => {
-  const o = u.toObject();
-  delete o.password;
-  return o;
-};
+const sign = id => jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
 router.post('/register', async (req, res) => {
   try {
     const { name, email, password, age, weight, height, fitnessGoal, activityLevel } = req.body;
-    if (!name || !email || !password) return res.status(400).json({ msg: 'Name, email and password are required' });
-    if (password.length < 6) return res.status(400).json({ msg: 'Password must be at least 6 characters' });
+    const normalizedEmail = (email || '').trim().toLowerCase();
 
-    if (await User.findOne({ email: email.toLowerCase() })) {
+    if (!name || !normalizedEmail || !password) {
+      return res.status(400).json({ msg: 'Name, email and password are required' });
+    }
+    if (password.length < 6) {
+      return res.status(400).json({ msg: 'Password must be at least 6 characters' });
+    }
+    if (database.findUserByEmail(normalizedEmail)) {
       return res.status(400).json({ msg: 'User already exists' });
     }
 
-    const hashed = await bcrypt.hash(password, 10);
-    const user = await User.create({ name, email, password: hashed, age, weight, height, fitnessGoal, activityLevel });
-    res.json({ token: sign(user.id), user: safe(user) });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ msg: 'Server error' });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = database.createUser({
+      name,
+      email: normalizedEmail,
+      password: hashedPassword,
+      age,
+      weight,
+      height,
+      fitnessGoal,
+      activityLevel
+    });
+
+    res.json({ token: sign(user.id), user: database.toPublicUser(user) });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: 'Could not create account' });
   }
 });
 
 router.post('/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email: (email || '').toLowerCase() });
-    if (!user || !(await bcrypt.compare(password || '', user.password))) {
+    const user = database.findUserByEmail(req.body.email || '');
+    if (!user || !(await bcrypt.compare(req.body.password || '', user.password))) {
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
-    res.json({ token: sign(user.id), user: safe(user) });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ msg: 'Server error' });
+    res.json({ token: sign(user.id), user: database.toPublicUser(user) });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: 'Could not sign in' });
   }
 });
 
-router.get('/me', auth, async (req, res) => {
+router.get('/me', auth, (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = database.findUserById(req.user.id);
     if (!user) return res.status(404).json({ msg: 'User not found' });
-    res.json(user);
-  } catch (err) {
-    res.status(500).json({ msg: 'Server error' });
+    res.json(database.toPublicUser(user));
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: 'Could not load account' });
   }
 });
 

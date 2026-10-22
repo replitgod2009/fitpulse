@@ -34,6 +34,7 @@ const EXERCISES = [
 let currentCat = 'all';
 let query = '';
 let queue = JSON.parse(localStorage.getItem('fp_queued_exercises') || '[]');
+const CATEGORY_ART = { cardio: '↗', strength: '✦', yoga: '◌', hiit: 'ϟ', core: '◒' };
 
 function updateQueueUI() {
   const btn = document.getElementById('openPlannerBtn');
@@ -60,8 +61,10 @@ function render() {
 
   grid.innerHTML = filtered.map(ex => `
     <div class="ex-card">
-      <img src="https://source.unsplash.com/400x300/?${ex.category},fitness,exercise" alt="${esc(ex.name)}" loading="lazy"
-           onerror="this.style.display='none'"/>
+      <div class="ex-art ${esc(ex.category)}" aria-hidden="true">
+        <span>${CATEGORY_ART[ex.category] || '•'}</span>
+        <small>${esc(ex.category)} session</small>
+      </div>
       <div class="content">
         <span class="cat">${esc(ex.category)}</span>
         <h4>${esc(ex.name)}</h4>

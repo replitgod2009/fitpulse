@@ -34,6 +34,13 @@
     </header>
 
     <section class="panel">
+      <div class="leaderboard-toolbar">
+        <div class="leaderboard-tabs" role="tablist" aria-label="Leaderboard scope">
+          <button id="globalLeaderboardTab" class="btn-primary leaderboard-tab" type="button" role="tab" aria-selected="true">Global</button>
+          <button id="friendsLeaderboardTab" class="btn-ghost leaderboard-tab" type="button" role="tab" aria-selected="false">Friends</button>
+        </div>
+        <p id="leaderboardHint" class="muted">See how you stack up across FitPulse.</p>
+      </div>
       <div id="podium" class="podium"></div>
     </section>
 
@@ -44,6 +51,32 @@
         </thead>
         <tbody id="leaderBody"></tbody>
       </table>
+    </section>
+
+    <section class="panel friend-add-panel" aria-labelledby="addFriendTitle">
+      <div>
+        <h3 id="addFriendTitle">Add a friend</h3>
+        <p class="muted">Send a request to the email they use for FitPulse.</p>
+      </div>
+      <form id="friendRequestForm" class="friend-request-form">
+        <label class="sr-only" for="friendEmail">Friend's FitPulse email</label>
+        <input id="friendEmail" type="email" autocomplete="email" placeholder="friend@example.com" required maxlength="254" />
+        <button id="sendFriendRequestBtn" class="btn-primary" type="submit">Send request</button>
+      </form>
+      <p id="friendRequestMessage" class="social-status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="grid-2 social-grid">
+      <section class="panel" aria-labelledby="requestsTitle">
+        <h3 id="requestsTitle">Friend requests</h3>
+        <div id="incomingRequests" class="social-list"></div>
+        <div id="outgoingRequests" class="social-list social-list-secondary"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="friendsTitle">
+        <h3 id="friendsTitle">Your friends <span id="friendCount" class="muted"></span></h3>
+        <div id="friendsList" class="social-list"></div>
+      </section>
     </section>
   </main>
 

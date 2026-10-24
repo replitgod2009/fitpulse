@@ -1,53 +1,67 @@
-// Show this only if user hasn't picked a theme yet
-if (!localStorage.getItem('fp_theme')) {
-  showThemePicker();
-}
+(function initThemePicker() {
+  function createElement(tag, className, text) {
+    const element = document.createElement(tag);
+    if (className) element.className = className;
+    if (text != null) element.textContent = text;
+    return element;
+  }
 
-function showThemePicker() {
-  const overlay = document.createElement('div');
-  overlay.className = 'theme-picker-overlay';
-  overlay.innerHTML = `
-    <div class="theme-picker">
-      <div class="tp-head">
-        <h2>Choose your training vibe 🎮</h2>
-        <p>You can switch anytime in Settings. Don't watch anime? No worries — pick Standard.</p>
-      </div>
-      <div class="tp-grid" id="tpGrid"></div>
-      <button class="btn-ghost" id="tpSkip">Skip for now</button>
-    </div>
-  `;
-  document.body.appendChild(overlay);
+  window.showThemePicker = function showThemePicker() {
+    if (document.querySelector('.theme-picker-overlay')) return;
 
-  const themes = [
-    { id: 'standard', name: 'Standard',       emoji: '💪', desc: 'Clean and simple' },
-    { id: 'hunter',   name: 'Hunter Mode',    emoji: '⚔', desc: 'Rise from E-Rank' },
-    { id: 'onepunch', name: 'One Punch',      emoji: '👊', desc: '100 reps a day' },
-    { id: 'warrior',  name: 'Warrior Mode',   emoji: '⚡', desc: 'Train like a Saiyan' },
-    { id: 'ninja',    name: 'Ninja Mode',     emoji: '🥷', desc: 'Master your chakra' },
-    { id: 'hero',     name: 'Hero Mode',      emoji: '🦸', desc: 'Go beyond limits' },
-    { id: 'titan',    name: 'Titan Mode',     emoji: '🗿', desc: 'Break the walls' },
-    { id: 'breath',   name: 'Breath Mode',    emoji: '🌊', desc: 'Master the breathing' }
-  ];
+    const overlay = createElement('div', 'theme-picker-overlay');
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'themePickerTitle');
 
-  const grid = document.getElementById('tpGrid');
-  themes.forEach(t => {
-    const card = document.createElement('button');
-    card.className = 'tp-card';
-    card.innerHTML = `
-      <div class="tp-emoji">${t.emoji}</div>
-      <div class="tp-name">${t.name}</div>
-      <div class="tp-desc">${t.desc}</div>
-    `;
-    card.addEventListener('click', () => {
-      localStorage.setItem('fp_theme', t.id);
-      overlay.remove();
-      window.location.reload();
+    const picker = createElement('section', 'theme-picker');
+    const header = createElement('div', 'tp-head');
+    const title = createElement('h2', '', 'Choose your training vibe');
+    title.id = 'themePickerTitle';
+    header.append(title, createElement('p', '', 'Switch instantly whenever you want. Your workout data stays exactly where it is.'));
+
+    const grid = createElement('div', 'tp-grid');
+    const themes = (window.ThemeSystem && window.ThemeSystem.available) || [];
+    themes.forEach((theme) => {
+      const card = createElement('button', 'tp-card');
+      card.type = 'button';
+      card.setAttribute('aria-label', 'Use ' + theme.name);
+      card.append(
+        createElement('span', 'tp-emoji', theme.emoji),
+        createElement('span', 'tp-name', theme.name),
+        createElement('span', 'tp-desc', theme.desc)
+      );
+      card.addEventListener('click', async () => {
+        card.disabled = true;
+        await window.ThemeSystem.load(theme.id);
+        overlay.remove();
+      });
+      grid.appendChild(card);
     });
-    grid.appendChild(card);
+
+    const skip = createElement('button', 'btn-ghost tp-skip', 'Use Standard');
+    skip.type = 'button';
+    skip.addEventListener('click', async () => {
+      await window.ThemeSystem.load('standard');
+      overlay.remove();
+    });
+
+    picker.append(header, grid, skip);
+    overlay.appendChild(picker);
+    document.body.appendChild(overlay);
+    picker.querySelector('button')?.focus();
+  };
+
+  document.addEventListener('click', (event) => {
+    const trigger = event.target.closest('[data-theme-picker]');
+    if (!trigger) return;
+    event.preventDefault();
+    window.showThemePicker();
   });
 
-  document.getElementById('tpSkip').addEventListener('click', () => {
-    localStorage.setItem('fp_theme', 'standard');
-    overlay.remove();
-  });
-}
+  try {
+    if (!localStorage.getItem('fp_theme')) window.showThemePicker();
+  } catch {
+    // The default theme remains usable when storage is unavailable.
+  }
+}());

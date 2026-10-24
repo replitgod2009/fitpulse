@@ -2,12 +2,18 @@ services:
   - type: web
     name: fitpulse
     runtime: node
+    # SQLite needs one mounted disk, which Render supports on paid service plans.
+    plan: 0.5c-512mb
     buildCommand: npm install
     startCommand: npm start
+    disk:
+      name: fitpulse-data
+      mountPath: /var/data
+      sizeGB: 1
     envVars:
       - key: JWT_SECRET
         generateValue: true
       - key: DB_FILE
-        value: ./data/fitpulse.sqlite
+        value: /var/data/fitpulse.sqlite
       - key: NODE_ENV
         value: production

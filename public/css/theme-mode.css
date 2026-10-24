@@ -1,0 +1,35 @@
+/* The light palette intentionally keeps a selected anime accent while making
+   contrast, controls, and charts comfortable in daylight. */
+html[data-color-mode="light"] {
+  --ink: #172033 !important;
+  --muted: #59657a !important;
+  --faint: #71809a !important;
+  --bg: #f5f7fb !important;
+  --bg-soft: #edf1f8 !important;
+  --surface: rgba(255,255,255,.92) !important;
+  --surface-2: #f1f4f9 !important;
+  --surface-3: #e6ebf4 !important;
+  --line: rgba(22,32,51,.13) !important;
+  --shadow: 0 20px 55px rgba(33,48,78,.13) !important;
+}
+html[data-color-mode="light"] body,
+html[data-color-mode="light"] .app-body { color: var(--ink); }
+html[data-color-mode="light"] .sidebar { background: rgba(255,255,255,.86); }
+html[data-color-mode="light"] .card,
+html[data-color-mode="light"] .panel,
+html[data-color-mode="light"] .auth-container,
+html[data-color-mode="light"] .chat-container { background: rgba(255,255,255,.91); }
+html[data-color-mode="light"] .panel input,
+html[data-color-mode="light"] .panel select,
+html[data-color-mode="light"] .panel textarea,
+html[data-color-mode="light"] .auth-form input,
+html[data-color-mode="light"] .auth-form select,
+html[data-color-mode="light"] .chat-input-row input,
+html[data-color-mode="light"] .meal-form input { background: #fff; color: var(--ink); }
+html[data-color-mode="light"] .btn-ghost { background: rgba(255,255,255,.66); }
+html[data-color-mode="light"] .app-body::before { opacity: .55; }
+.preference-controls { align-items: center; display: flex; gap: 7px; margin-left: auto; }
+.utility-button { align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 11px; color: var(--ink); display: inline-flex; font-size: .9rem; height: 37px; justify-content: center; padding: 0; width: 39px; }
+.utility-button:hover { border-color: var(--lime); transform: translateY(-1px); }
+.language-button { font-size: .77rem; font-weight: 850; }
+@media (max-width: 640px) { .preference-controls { margin-left: 0; }.utility-button { height: 35px; width: 37px; } }

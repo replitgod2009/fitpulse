@@ -11,6 +11,7 @@
 <meta name="apple-mobile-web-app-title" content="FitPulse" />
 <link rel="apple-touch-icon" href="/icons/icon-192.png" />
 <link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/workout-features.css" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 </head>
 <body class="app-body">
@@ -30,11 +31,14 @@
 
   <main class="main">
     <header class="topbar">
-      <h1>Daily Workout Planner 📅</h1>
+      <div>
+        <h1><span data-theme-label="questLabel">Daily Quest</span> Planner 📅</h1>
+      </div>
+      <button type="button" class="btn-ghost theme-picker-trigger" data-theme-picker>⚔ Theme</button>
     </header>
 
     <section class="panel">
-      <h3>Create Workout</h3>
+      <h3>Build your workout</h3>
       <form id="workoutForm">
         <input type="text" id="wName" placeholder="Workout name (e.g., Morning Cardio)" required />
         <div id="exerciseList"></div>
@@ -44,12 +48,14 @@
     </section>
 
     <section class="panel">
-      <h3>Your Workouts</h3>
+      <h3>Your saved workouts</h3>
       <div id="workoutsContainer" class="workouts-list"></div>
     </section>
   </main>
 
   <script src="/js/api.js"></script>
+  <script src="/themes/themes.js"></script>
+  <script src="/themes/theme-picker.js"></script>
   <script src="/js/planner.js"></script>
   <script src="/js/pwa.js"></script>
 </body>

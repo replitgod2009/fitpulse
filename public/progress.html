@@ -11,10 +11,11 @@
 <meta name="apple-mobile-web-app-title" content="FitPulse" />
 <link rel="apple-touch-icon" href="/icons/icon-192.png" />
 <link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/progress-features.css" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="app-body">
+<body class="app-body progress-page">
 
   <aside class="sidebar">
     <div class="logo"><img class="app-logo" src="/assets/fitpulse-lockup.png" alt="FitPulse" /></div>
@@ -32,27 +33,182 @@
   <main class="main">
     <header class="topbar">
       <h1>Your Progress 📊</h1>
+      <div class="progress-tabs" role="tablist" aria-label="Progress views">
+        <button id="overviewTab" class="progress-tab active" type="button" role="tab" aria-selected="true" aria-controls="overviewPanel">
+          Overview
+        </button>
+        <button id="nutritionTab" class="progress-tab" type="button" role="tab" aria-selected="false" aria-controls="nutritionPanel">
+          Nutrition
+        </button>
+      </div>
     </header>
 
-    <section class="grid-2">
-      <div class="panel">
-        <h3>Calories Over Time</h3>
-        <canvas id="calChart"></canvas>
-      </div>
-      <div class="panel">
-        <h3>Workout Duration (min)</h3>
-        <canvas id="durChart"></canvas>
-      </div>
+    <section id="overviewPanel" class="progress-view" role="tabpanel" aria-labelledby="overviewTab">
+      <section class="panel consistency-panel" aria-labelledby="consistencyTitle">
+        <div class="progress-panel-head">
+          <div>
+            <p class="progress-kicker">Keep the chain alive</p>
+            <h3 id="consistencyTitle">12-week consistency</h3>
+          </div>
+          <span id="consistencyRange" class="progress-date-range"></span>
+        </div>
+        <p id="heatmapSummary" class="muted progress-support-copy">Loading your completed workout history…</p>
+        <div class="heatmap-layout">
+          <div class="heatmap-day-labels" aria-hidden="true">
+            <span>Sun</span>
+            <span></span>
+            <span>Tue</span>
+            <span></span>
+            <span>Thu</span>
+            <span></span>
+            <span>Sat</span>
+          </div>
+          <div class="heatmap-scroller">
+            <div id="consistencyGrid" class="consistency-heatmap" role="group" aria-label="Completed workouts in the last 12 weeks"></div>
+          </div>
+        </div>
+        <div class="heatmap-footer">
+          <span class="heatmap-legend-label">Less</span>
+          <div class="heatmap-legend" aria-label="Heatmap legend">
+            <span class="heatmap-cell heatmap-none" title="No workouts"></span>
+            <span class="heatmap-cell heatmap-one" title="One workout"></span>
+            <span class="heatmap-cell heatmap-many" title="Two or more workouts"></span>
+          </div>
+          <span class="heatmap-legend-label">More</span>
+        </div>
+        <div id="heatmapTooltip" class="heatmap-tooltip" role="tooltip" hidden></div>
+      </section>
+
+      <section class="records-section" aria-labelledby="recordsTitle">
+        <div class="progress-section-head">
+          <div>
+            <p class="progress-kicker">Beat your past self</p>
+            <h2 id="recordsTitle">Personal records</h2>
+          </div>
+        </div>
+        <div class="records-grid">
+          <article class="record-card record-card-duration">
+            <span class="record-icon" aria-hidden="true">⏱</span>
+            <p>Longest workout</p>
+            <strong id="recordLongestWorkout">—</strong>
+            <small id="recordLongestWorkoutDate">Complete a workout to set this record.</small>
+          </article>
+          <article class="record-card record-card-calories">
+            <span class="record-icon" aria-hidden="true">🔥</span>
+            <p>Most calories burned</p>
+            <strong id="recordMostCalories">—</strong>
+            <small id="recordMostCaloriesDate">Complete a workout to set this record.</small>
+          </article>
+          <article class="record-card record-card-streak">
+            <span class="record-icon" aria-hidden="true">🏆</span>
+            <p>Longest streak</p>
+            <strong id="recordLongestStreak">—</strong>
+            <small id="recordCurrentStreak">Current streak: —</small>
+          </article>
+        </div>
+      </section>
+
+      <section class="grid-2 progress-chart-grid">
+        <div class="panel progress-chart-panel">
+          <div class="progress-panel-head compact">
+            <h3>Calories over time</h3>
+            <span class="chart-caption">Completed workouts</span>
+          </div>
+          <div class="progress-chart-shell"><canvas id="calChart"></canvas></div>
+        </div>
+        <div class="panel progress-chart-panel">
+          <div class="progress-panel-head compact">
+            <h3>Workout duration</h3>
+            <span class="chart-caption">Completed workouts</span>
+          </div>
+          <div class="progress-chart-shell"><canvas id="durChart"></canvas></div>
+        </div>
+      </section>
+      <p id="overviewChartState" class="progress-empty-state" hidden></p>
+
+      <section class="panel completed-workouts-panel" aria-labelledby="completedWorkoutsTitle">
+        <div class="progress-panel-head">
+          <div>
+            <p class="progress-kicker">Your training journal</p>
+            <h3 id="completedWorkoutsTitle">Completed workouts</h3>
+          </div>
+          <span id="completedWorkoutsCount" class="history-count">0 completed</span>
+        </div>
+        <div id="completedWorkoutsList" class="completed-workouts-list" aria-live="polite"></div>
+      </section>
+
+      <section class="panel">
+        <h3>Your Badges 🏅</h3>
+        <div id="badgesContainer" class="badges"></div>
+      </section>
+
+      <section class="panel">
+        <h3>Recent Activities</h3>
+        <div id="activitiesList"></div>
+      </section>
     </section>
 
-    <section class="panel">
-      <h3>Your Badges 🏅</h3>
-      <div id="badgesContainer" class="badges"></div>
-    </section>
+    <section id="nutritionPanel" class="progress-view" role="tabpanel" aria-labelledby="nutritionTab" hidden>
+      <section class="nutrition-hero" aria-labelledby="nutritionTitle">
+        <div>
+          <p class="progress-kicker">Fuel the work</p>
+          <h2 id="nutritionTitle">Nutrition today</h2>
+          <p id="nutritionStatus" class="muted progress-support-copy">Loading meal data…</p>
+        </div>
+        <span id="nutritionDayLabel" class="nutrition-day-label"></span>
+      </section>
 
-    <section class="panel">
-      <h3>Recent Activities</h3>
-      <div id="activitiesList"></div>
+      <section class="nutrition-summary-grid" aria-label="Today's nutrition summary">
+        <article class="nutrition-summary-card nutrition-calories-card">
+          <span>Calories eaten</span>
+          <strong id="nutritionCalories">—</strong>
+          <small>kcal logged today</small>
+        </article>
+        <article class="nutrition-summary-card nutrition-burn-card">
+          <span>Calories burned</span>
+          <strong id="nutritionBurned">—</strong>
+          <small>from completed workouts</small>
+        </article>
+        <article class="nutrition-summary-card nutrition-balance-card">
+          <span>Daily balance</span>
+          <strong id="nutritionBalance">—</strong>
+          <small>eaten minus burned</small>
+        </article>
+      </section>
+
+      <section class="macro-summary" aria-label="Today's macro nutrients">
+        <article class="macro-card macro-protein"><span>Protein</span><strong id="macroProtein">—</strong><small>grams</small></article>
+        <article class="macro-card macro-carbs"><span>Carbs</span><strong id="macroCarbs">—</strong><small>grams</small></article>
+        <article class="macro-card macro-fat"><span>Fat</span><strong id="macroFat">—</strong><small>grams</small></article>
+      </section>
+
+      <section class="grid-2 nutrition-chart-grid">
+        <div class="panel progress-chart-panel">
+          <div class="progress-panel-head compact">
+            <h3>Intake vs. burn</h3>
+            <span class="chart-caption">Last 7 days</span>
+          </div>
+          <div class="progress-chart-shell"><canvas id="nutritionCaloriesChart"></canvas></div>
+        </div>
+        <div class="panel progress-chart-panel">
+          <div class="progress-panel-head compact">
+            <h3>Macro split</h3>
+            <span class="chart-caption">Today</span>
+          </div>
+          <div class="progress-chart-shell"><canvas id="macroChart"></canvas></div>
+        </div>
+      </section>
+
+      <section class="panel meals-history-panel" aria-labelledby="mealHistoryTitle">
+        <div class="progress-panel-head">
+          <div>
+            <p class="progress-kicker">Recent fuel</p>
+            <h3 id="mealHistoryTitle">Meal history</h3>
+          </div>
+          <span id="mealHistoryCount" class="history-count">0 meals</span>
+        </div>
+        <div id="mealHistoryList" class="meal-history-list" aria-live="polite"></div>
+      </section>
     </section>
   </main>
 

@@ -11,6 +11,9 @@
 <meta name="apple-mobile-web-app-title" content="FitPulse" />
 <link rel="apple-touch-icon" href="/icons/icon-192.png" />
 <link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/workout-features.css" />
+<link rel="stylesheet" href="/css/theme-mode.css" />
+<link rel="stylesheet" href="/css/dashboard-features.css" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -19,22 +22,24 @@
   <aside class="sidebar">
     <div class="logo"><img class="app-logo" src="/assets/fitpulse-lockup.png" alt="FitPulse" /></div>
     <nav>
-      <a href="/dashboard.html" class="active">🏠 Dashboard</a>
-      <a href="/ai-trainer.html">🤖 AI Trainer</a>
-      <a href="/planner.html">📅 Planner</a>
-      <a href="/library.html">📚 Library</a>
-      <a href="/progress.html">📊 Progress</a>
-      <a href="/leaderboard.html">🏆 Leaderboard</a>
+      <a href="/dashboard.html" class="active">🏠 <span data-i18n="dashboard">Dashboard</span></a>
+      <a href="/ai-trainer.html">🤖 <span data-i18n="aiTrainer">AI Trainer</span></a>
+      <a href="/planner.html">📅 <span data-i18n="planner">Planner</span></a>
+      <a href="/library.html">📚 <span data-i18n="library">Library</span></a>
+      <a href="/progress.html">📊 <span data-i18n="progress">Progress</span></a>
+      <a href="/leaderboard.html">🏆 <span data-i18n="leaderboard">Leaderboard</span></a>
     </nav>
-    <button id="logoutBtn" class="btn-ghost logout">Logout</button>
+    <button id="logoutBtn" class="btn-ghost logout" data-i18n="logout">Logout</button>
   </aside>
 
   <main class="main">
     <header class="topbar">
-      <h1>Welcome back, <span id="userName">User</span> 👋</h1>
-      <div class="stats-mini">
-        <div class="stat-pill">🔥 Streak: <b id="streakVal">0</b></div>
-        <div class="stat-pill">⭐ Points: <b id="pointsVal">0</b></div>
+      <h1><span data-theme-label="welcome">Welcome back</span>, <span id="userName">User</span> 👋</h1>
+        <div class="stats-mini">
+        <div class="stat-pill">🔥 <span data-theme-label="streakLabel">Streak</span>: <b id="streakVal">0</b></div>
+        <div class="stat-pill">⭐ <span data-theme-label="pointsLabel">Points</span>: <b id="pointsVal">0</b></div>
+        <div class="stat-pill">🏆 <span data-theme-label="rankLabel">Rank</span>: <b data-theme-rank>⭐ Beginner</b></div>
+        <button type="button" class="btn-ghost theme-picker-trigger" data-theme-picker>⚔ Theme</button>
       </div>
     </header>
 
@@ -43,70 +48,76 @@
       <div class="ait-left">
         <div class="ait-emoji">🤖</div>
         <div>
-          <h3>Meet Pulse — your AI Trainer</h3>
-          <p>Get a personalized workout in under 30 seconds. Just answer 4 quick questions.</p>
+          <h3 data-i18n="aiTrainerHeading">Meet Pulse — your AI Trainer</h3>
+          <p data-i18n="aiTrainerCopy">Get a personalized workout in under 30 seconds. Just answer 4 quick questions.</p>
         </div>
       </div>
-      <a href="/ai-trainer.html" class="btn-primary">Talk to AI Trainer →</a>
+      <a href="/ai-trainer.html" class="btn-primary" data-i18n="talkToTrainer">Talk to AI Trainer →</a>
     </div>
 
     <section class="cards">
       <div class="card">
-        <h3>Today's Calories</h3>
+        <h3 data-i18n="calories">Today's Calories</h3>
         <p class="big-num skeleton" id="todayCal"></p>
-        <p class="muted">kcal burned</p>
+        <p class="muted" data-i18n="kcalBurned">kcal burned</p>
       </div>
       <div class="card">
-        <h3>Workout Minutes</h3>
+        <h3 data-i18n="workoutMinutes">Workout Minutes</h3>
         <p class="big-num skeleton" id="todayMin"></p>
-        <p class="muted">minutes today</p>
+        <p class="muted" data-i18n="minutesToday">minutes today</p>
       </div>
       <div class="card">
-        <h3>Water Intake</h3>
+        <h3 data-i18n="waterIntake">Water Intake</h3>
         <p class="big-num skeleton" id="waterVal"></p>
-        <p class="muted">glasses</p>
+        <p class="muted" data-i18n="glasses">glasses</p>
       </div>
       <div class="card">
-        <h3>Badges</h3>
+        <h3 data-i18n="badges">Badges</h3>
         <p class="big-num skeleton" id="badgeCount"></p>
-        <p class="muted">earned</p>
+        <p class="muted" data-i18n="earned">earned</p>
       </div>
     </section>
 
     <section class="grid-2">
       <div class="panel">
-        <h3>Weekly Calories</h3>
+        <h3 data-i18n="weeklyCalories">Weekly Calories</h3>
         <canvas id="weeklyChart"></canvas>
       </div>
       <div class="panel">
-        <h3>Quick Log</h3>
+        <h3 data-i18n="quickLog">Quick Log</h3>
         <form id="quickLogForm">
-          <label>Water (glasses)</label>
+          <label data-i18n="water">Water (glasses)</label>
           <input type="number" id="qWater" min="0" max="20" value="0" />
-          <label>Sleep (hours)</label>
+          <label data-i18n="sleep">Sleep (hours)</label>
           <input type="number" id="qSleep" min="0" max="24" step="0.5" value="7" />
-          <label>Steps</label>
+          <label data-i18n="steps">Steps</label>
           <input type="number" id="qSteps" min="0" value="0" />
-          <label>Mood</label>
+          <label data-i18n="mood">Mood</label>
           <select id="qMood">
             <option value="great">Great</option>
             <option value="good" selected>Good</option>
             <option value="okay">Okay</option>
             <option value="tired">Tired</option>
           </select>
-          <button class="btn-primary" type="submit">Log Activity</button>
+          <button class="btn-primary" type="submit" data-i18n="logActivity">Log Activity</button>
         </form>
       </div>
     </section>
 
     <section class="panel">
-      <h3>Recommended for you 🎯</h3>
+      <h3><span data-theme-label="questLabel">Daily Quest</span> 🎯</h3>
       <div id="recommendations" class="rec-grid"></div>
     </section>
   </main>
 
   <script src="/js/api.js"></script>
+  <script src="/js/i18n.js"></script>
+  <script src="/themes/themes.js"></script>
+  <script src="/themes/theme-picker.js"></script>
+  <script src="/js/preferences.js"></script>
+  <script src="/js/reminders.js"></script>
   <script src="/js/dashboard.js"></script>
+  <script src="/js/dashboard-enhancements.js"></script>
   <script src="/js/pwa.js"></script>
 </body>
 </html>

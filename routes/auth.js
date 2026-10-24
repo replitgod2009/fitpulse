@@ -65,4 +65,15 @@ router.get('/me', auth, (req, res) => {
   }
 });
 
+router.post('/streak-freeze', auth, (req, res) => {
+  try {
+    const result = database.claimStreakFreeze(req.user.id, req.body?.action);
+    res.json(result);
+  } catch (error) {
+    if (error.statusCode) return res.status(error.statusCode).json({ msg: error.message });
+    console.error(error);
+    res.status(500).json({ msg: 'Could not update your Streak Freeze' });
+  }
+});
+
 module.exports = router;

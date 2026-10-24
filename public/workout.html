@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Workout Mode — FitPulse</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💪</text></svg>" />
+<meta name="theme-color" content="#7c3aed" />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/workout-features.css" />
+<link rel="stylesheet" href="/css/theme-mode.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body class="workout-mode-page">
+  <div class="workout-shell">
+    <header class="workout-topbar">
+      <a id="exitWorkout" href="/planner.html" class="btn-ghost">← Exit workout</a>
+      <div class="workout-topbar-actions">
+        <button type="button" class="btn-ghost utility-button" data-color-mode-toggle aria-label="Toggle color mode">🌙</button>
+        <button id="voiceToggle" type="button" class="btn-ghost" aria-pressed="true">🔊 Voice on</button>
+      </div>
+    </header>
+
+    <main id="workoutStage" class="workout-stage" data-phase="ready">
+      <section id="loadingState" class="workout-start-card" aria-live="polite">
+        <p class="workout-eyebrow">Workout mode</p>
+        <h1>Loading your quest…</h1>
+      </section>
+
+      <section id="startState" class="workout-start-card" hidden>
+        <p class="workout-eyebrow" data-theme-label="questLabel">Daily Quest</p>
+        <h1 id="startWorkoutName">Ready when you are</h1>
+        <p id="startWorkoutSummary">Your guided workout is ready.</p>
+        <button id="beginWorkout" type="button" class="btn-primary">Begin workout →</button>
+      </section>
+
+      <section id="activeState" class="workout-stage-inner" hidden>
+        <p id="phaseLabel" class="workout-eyebrow">Work set</p>
+        <div id="workoutTimer" class="workout-timer" role="timer" aria-live="off">00:00</div>
+        <h1 id="currentExercise" class="workout-current">Get ready</h1>
+        <p id="setRepInfo" class="workout-set-info">Set 1 of 1</p>
+        <div class="workout-next">
+          <span>Next up</span>
+          <strong id="nextExercise">—</strong>
+        </div>
+        <div class="workout-controls">
+          <button id="pauseWorkout" type="button" class="btn-ghost">Ⅱ Pause</button>
+          <button id="skipPhase" type="button" class="btn-ghost">Skip</button>
+        </div>
+        <p id="workoutProgress" class="workout-progress">Exercise 1 of 1</p>
+      </section>
+
+      <section id="completionState" class="workout-completion" hidden>
+        <div id="completionIntro" class="completion-intro">
+          <p class="workout-eyebrow">Quest complete</p>
+          <h1 data-theme-label="completeMessage">Workout complete. Nicely done.</h1>
+          <p>How do you feel? Add a quick memory if you want to look back on this session later.</p>
+        </div>
+
+        <form id="completionForm" class="completion-form">
+          <div class="mood-choices" aria-label="How do you feel?">
+            <button type="button" class="mood-choice" data-mood="energized" aria-pressed="false"><span>😃</span>Energized</button>
+            <button type="button" class="mood-choice" data-mood="fine" aria-pressed="false"><span>😐</span>Fine</button>
+            <button type="button" class="mood-choice" data-mood="exhausted" aria-pressed="false"><span>😫</span>Exhausted</button>
+          </div>
+          <label for="completionNotes">A note for this workout (optional)</label>
+          <textarea id="completionNotes" maxlength="800" placeholder="Felt strong today!"></textarea>
+          <label for="completionPhoto">Workout photo (optional)</label>
+          <input id="completionPhoto" type="file" accept="image/jpeg,image/png,image/webp" />
+          <img id="photoPreview" class="photo-preview" alt="Workout photo preview" />
+          <p id="completionStatus" class="completion-status" aria-live="polite"></p>
+          <div class="completion-actions">
+            <button id="saveCompletion" type="submit" class="btn-primary">Save &amp; finish</button>
+            <a href="/planner.html" class="btn-ghost">Keep as planned</a>
+          </div>
+        </form>
+
+        <div id="completionResult" class="completion-result">
+          <p class="workout-eyebrow">Saved</p>
+          <h1>Another win in the books.</h1>
+          <p id="completionStats">Your activity is updated.</p>
+          <div class="completion-actions">
+            <button id="shareWorkout" type="button" class="btn-primary">Share achievement</button>
+            <a href="/planner.html" class="btn-ghost">Back to planner</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/i18n.js"></script>
+  <script src="/themes/themes.js"></script>
+  <script src="/js/preferences.js"></script>
+  <script src="/js/workout.js"></script>
+</body>
+</html>

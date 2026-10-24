@@ -1,5 +1,41 @@
 document.documentElement.classList.add('fitpulse-ready');
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch((error) => console.warn('PWA service worker unavailable', error));
+  });
+}
+
+function loadSharedScript(src, ready) {
+  const existing = document.querySelector('script[src="' + src + '"]');
+  if (existing) {
+    ready();
+    return;
+  }
+  const script = document.createElement('script');
+  script.src = src;
+  script.onload = ready;
+  script.onerror = () => console.warn('Shared interface enhancement unavailable:', src);
+  document.head.appendChild(script);
+}
+
+function initSharedInterface() {
+  if (!document.querySelector('link[href="/css/theme-mode.css"]')) {
+    const stylesheet = document.createElement('link');
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = '/css/theme-mode.css';
+    document.head.appendChild(stylesheet);
+  }
+
+  loadSharedScript('/js/i18n.js', () => {
+    loadSharedScript('/themes/themes.js', () => {
+      loadSharedScript('/js/preferences.js', () => {});
+    });
+  });
+}
+
+initSharedInterface();
+
 function initMobileExperience() {
   const sidebar = document.querySelector('.sidebar');
   const main = document.querySelector('.main');

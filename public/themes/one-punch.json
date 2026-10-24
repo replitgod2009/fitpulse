@@ -1,0 +1,42 @@
+{
+  "id": "one-punch",
+  "name": "One Punch",
+  "emoji": "👊",
+  "tagline": "One routine at a time",
+  "colors": {
+    "bg": "#15120e",
+    "bg2": "#211a10",
+    "panel": "#282016",
+    "panel2": "#332719",
+    "border": "#5a4221",
+    "text": "#fff8e8",
+    "muted": "#c9b486",
+    "primary": "#facc15",
+    "primary2": "#f97316",
+    "accent": "#fef08a",
+    "gradient": "linear-gradient(135deg, #facc15 0%, #f97316 100%)"
+  },
+  "background": "bold-sun",
+  "labels": {
+    "welcome": "Keep it simple",
+    "pointsLabel": "Hero Points",
+    "streakLabel": "Daily Training",
+    "rankLabel": "Hero Class",
+    "questLabel": "Today's Training",
+    "completeMessage": "Training complete. A hero gets stronger every day.",
+    "dayOneRank": "Class C"
+  },
+  "ranks": [
+    { "minXP": 0, "name": "Class C", "emoji": "🥋" },
+    { "minXP": 200, "name": "Class B", "emoji": "💥" },
+    { "minXP": 600, "name": "Class A", "emoji": "⚡" },
+    { "minXP": 1500, "name": "Class S", "emoji": "👊" }
+  ],
+  "exerciseNames": {
+    "cardio": "Hero Warm-up",
+    "strength": "Strength Session",
+    "hiit": "Serious Training",
+    "yoga": "Recovery Training",
+    "core": "Core Conditioning"
+  }
+}

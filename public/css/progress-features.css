@@ -1,0 +1,633 @@
+.progress-page .topbar {
+  align-items: center;
+}
+
+.progress-page .progress-view[hidden] {
+  display: none !important;
+}
+
+.progress-tabs {
+  align-items: center;
+  background: rgba(255,255,255,.045);
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+}
+
+.progress-tab {
+  background: transparent;
+  border: 0;
+  border-radius: 9px;
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 750;
+  min-height: 36px;
+  padding: 0 14px;
+  transition: background .18s ease, color .18s ease, box-shadow .18s ease;
+}
+
+.progress-tab:hover,
+.progress-tab:focus-visible {
+  color: var(--ink);
+  outline: none;
+}
+
+.progress-tab:focus-visible {
+  box-shadow: 0 0 0 3px rgba(110,220,255,.22);
+}
+
+.progress-tab.active {
+  background: var(--surface-3);
+  color: var(--ink);
+}
+
+.progress-page .panel,
+.progress-page .records-section,
+.progress-page .nutrition-hero,
+.progress-page .nutrition-summary-grid,
+.progress-page .macro-summary {
+  margin-bottom: 20px;
+}
+
+.progress-panel-head,
+.progress-section-head {
+  align-items: flex-start;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.progress-panel-head {
+  margin-bottom: 15px;
+}
+
+.progress-panel-head.compact {
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.progress-page .progress-panel-head h3,
+.progress-page .progress-section-head h2 {
+  margin: 0;
+}
+
+.progress-page .progress-section-head h2 {
+  font-size: 1.18rem;
+  letter-spacing: -.035em;
+}
+
+.progress-kicker {
+  color: var(--lime);
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .11em;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.progress-support-copy {
+  font-size: .8rem;
+  margin-bottom: 18px;
+}
+
+.progress-date-range,
+.chart-caption,
+.history-count,
+.nutrition-day-label {
+  color: var(--muted);
+  font-size: .72rem;
+  white-space: nowrap;
+}
+
+.progress-date-range,
+.history-count,
+.nutrition-day-label {
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 10px;
+}
+
+.consistency-panel {
+  overflow: visible;
+  position: relative;
+}
+
+.heatmap-layout {
+  align-items: flex-start;
+  display: flex;
+  gap: 9px;
+  width: 100%;
+}
+
+.heatmap-day-labels {
+  color: var(--faint);
+  display: grid;
+  flex: 0 0 28px;
+  font-size: .6rem;
+  gap: 4px;
+  grid-template-rows: repeat(7, 18px);
+  line-height: 18px;
+}
+
+.heatmap-scroller {
+  overflow-x: auto;
+  padding: 2px 2px 8px;
+  scrollbar-color: var(--surface-3) transparent;
+  scrollbar-width: thin;
+  width: 100%;
+}
+
+.consistency-heatmap {
+  display: grid;
+  gap: 4px;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(12, 18px);
+  grid-template-rows: repeat(7, 18px);
+  min-width: max-content;
+}
+
+.heatmap-cell {
+  appearance: none;
+  background: #283140;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  display: block;
+  height: 18px;
+  min-height: 18px;
+  min-width: 18px;
+  padding: 0;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  width: 18px;
+}
+
+button.heatmap-cell:not(:disabled):hover {
+  border-color: rgba(255,255,255,.7);
+  box-shadow: 0 0 0 2px rgba(255,255,255,.08);
+  transform: scale(1.1);
+}
+
+button.heatmap-cell:focus-visible {
+  border-color: #fff;
+  box-shadow: 0 0 0 3px rgba(110,220,255,.38);
+  outline: none;
+}
+
+.heatmap-cell.heatmap-none { background: #293241; }
+.heatmap-cell.heatmap-one { background: #a78bfa; box-shadow: 0 0 12px rgba(167,139,250,.2); }
+.heatmap-cell.heatmap-many { background: #48d7ef; box-shadow: 0 0 13px rgba(72,215,239,.3); }
+.heatmap-cell.heatmap-future { background: rgba(255,255,255,.035); box-shadow: none; cursor: default; opacity: .6; }
+
+.heatmap-footer {
+  align-items: center;
+  display: flex;
+  gap: 7px;
+  justify-content: flex-end;
+  margin-top: 9px;
+}
+
+.heatmap-legend {
+  display: flex;
+  gap: 4px;
+}
+
+.heatmap-legend-label {
+  color: var(--faint);
+  font-size: .65rem;
+}
+
+.heatmap-tooltip {
+  background: #111927;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 9px;
+  box-shadow: 0 14px 35px rgba(0,0,0,.35);
+  color: #f5f7fb;
+  font-size: .73rem;
+  line-height: 1.45;
+  max-width: min(280px, calc(100vw - 20px));
+  padding: 9px 11px;
+  pointer-events: none;
+  position: fixed;
+  z-index: 100;
+}
+
+.records-section {
+  padding-top: 2px;
+}
+
+.records-grid,
+.nutrition-summary-grid,
+.macro-summary {
+  display: grid;
+  gap: 13px;
+}
+
+.records-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.record-card {
+  background: rgba(17,23,33,.78);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  min-height: 156px;
+  overflow: hidden;
+  padding: 18px;
+  position: relative;
+}
+
+.record-card::after {
+  background: radial-gradient(circle, rgba(255,255,255,.13), transparent 69%);
+  content: '';
+  height: 145px;
+  pointer-events: none;
+  position: absolute;
+  right: -48px;
+  top: -61px;
+  width: 145px;
+}
+
+.record-card-duration { border-color: rgba(110,220,255,.25); }
+.record-card-calories { border-color: rgba(255,130,109,.25); }
+.record-card-streak { border-color: rgba(255,199,106,.25); }
+
+.record-icon {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 17px;
+}
+
+.record-card p {
+  color: var(--muted);
+  font-size: .72rem;
+  font-weight: 650;
+}
+
+.record-card strong {
+  display: block;
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+  letter-spacing: -.06em;
+  line-height: 1.05;
+  margin: 5px 0 7px;
+}
+
+.record-card small {
+  color: var(--faint);
+  display: block;
+  font-size: .67rem;
+  line-height: 1.35;
+}
+
+.progress-page .progress-chart-grid,
+.progress-page .nutrition-chart-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.progress-chart-panel {
+  min-width: 0;
+}
+
+.progress-chart-shell {
+  min-height: 250px;
+  position: relative;
+}
+
+.progress-chart-shell canvas {
+  height: 250px !important;
+  max-width: 100%;
+  width: 100% !important;
+}
+
+.progress-chart-shell.is-empty canvas {
+  visibility: hidden;
+}
+
+.chart-empty-copy {
+  align-items: center;
+  display: flex;
+  font-size: .78rem;
+  inset: 0;
+  justify-content: center;
+  margin: 0;
+  padding: 22px;
+  position: absolute;
+  text-align: center;
+}
+
+.progress-empty-state {
+  background: rgba(255,255,255,.025);
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  color: var(--muted);
+  font-size: .79rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 15px;
+}
+
+.completed-workouts-list,
+.meal-history-list {
+  display: grid;
+  gap: 10px;
+}
+
+.completed-workout-card {
+  align-items: stretch;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  display: flex;
+  gap: 16px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.completed-workout-photo {
+  aspect-ratio: 1 / 1;
+  flex: 0 0 132px;
+  object-fit: cover;
+  width: 132px;
+}
+
+.completed-workout-content {
+  min-width: 0;
+  padding: 15px 16px 15px 0;
+}
+
+.completed-workout-card:not(.has-photo) .completed-workout-content {
+  padding-left: 16px;
+}
+
+.completed-workout-topline {
+  align-items: center;
+  color: var(--faint);
+  display: flex;
+  font-size: .68rem;
+  gap: 10px;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.completed-workout-mood {
+  background: rgba(255,255,255,.045);
+  border-radius: 999px;
+  color: var(--muted);
+  padding: 3px 7px;
+  white-space: nowrap;
+}
+
+.completed-workout-card h4,
+.meal-history-card h4 {
+  font-size: .9rem;
+  margin: 0 0 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.completed-workout-meta,
+.completed-workout-note,
+.meal-history-card p {
+  color: var(--muted);
+  font-size: .74rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.completed-workout-note {
+  color: var(--ink);
+  font-size: .76rem;
+  font-style: italic;
+  margin-top: 8px;
+}
+
+.completed-workout-note.is-muted {
+  color: var(--faint);
+}
+
+.nutrition-hero {
+  align-items: flex-end;
+  background: radial-gradient(circle at 90% 5%, rgba(110,220,255,.16), transparent 27%), linear-gradient(120deg, rgba(168,85,247,.16), rgba(17,23,33,.86));
+  border: 1px solid rgba(168,85,247,.28);
+  border-radius: 18px;
+  display: flex;
+  gap: 22px;
+  justify-content: space-between;
+  padding: 25px;
+}
+
+.nutrition-hero h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  letter-spacing: -.055em;
+  margin: 0;
+}
+
+.nutrition-hero .progress-support-copy {
+  margin: 7px 0 0;
+  max-width: 550px;
+}
+
+.nutrition-day-label {
+  background: rgba(8,10,15,.36);
+  color: var(--ink);
+}
+
+.nutrition-summary-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.nutrition-summary-card,
+.macro-card {
+  background: rgba(17,23,33,.8);
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  padding: 18px;
+}
+
+.nutrition-summary-card span,
+.macro-card span {
+  color: var(--muted);
+  display: block;
+  font-size: .7rem;
+  font-weight: 700;
+}
+
+.nutrition-summary-card strong {
+  display: block;
+  font-size: clamp(1.22rem, 2vw, 1.65rem);
+  letter-spacing: -.055em;
+  margin: 8px 0 4px;
+}
+
+.nutrition-summary-card small,
+.macro-card small {
+  color: var(--faint);
+  font-size: .66rem;
+}
+
+.nutrition-calories-card { border-color: rgba(168,85,247,.3); }
+.nutrition-burn-card { border-color: rgba(110,220,255,.3); }
+.nutrition-balance-card { border-color: rgba(255,199,106,.28); }
+
+.macro-summary {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.macro-card {
+  min-height: 104px;
+}
+
+.macro-card strong {
+  display: inline-block;
+  font-size: 1.5rem;
+  letter-spacing: -.05em;
+  margin: 8px 3px 0 0;
+}
+
+.macro-protein { border-bottom: 3px solid #6edcff; }
+.macro-carbs { border-bottom: 3px solid #a855f7; }
+.macro-fat { border-bottom: 3px solid #ffc76a; }
+
+.meal-history-card {
+  align-items: center;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  padding: 14px 15px;
+}
+
+.meal-history-nutrition {
+  flex: 0 0 auto;
+  text-align: right;
+}
+
+.meal-history-nutrition strong,
+.meal-history-nutrition span {
+  display: block;
+}
+
+.meal-history-nutrition strong {
+  font-size: .8rem;
+}
+
+.meal-history-nutrition span {
+  color: var(--muted);
+  font-size: .66rem;
+  margin-top: 3px;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .records-grid,
+  .nutrition-summary-grid,
+  .macro-summary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .progress-page .progress-chart-grid,
+  .progress-page .nutrition-chart-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .progress-page .topbar {
+    align-items: flex-start;
+  }
+
+  .progress-tabs {
+    width: 100%;
+  }
+
+  .progress-tab {
+    flex: 1;
+  }
+
+  .progress-panel-head,
+  .progress-section-head,
+  .nutrition-hero {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .progress-date-range,
+  .nutrition-day-label {
+    white-space: normal;
+  }
+
+  .records-grid,
+  .nutrition-summary-grid,
+  .macro-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .record-card {
+    min-height: 124px;
+  }
+
+  .record-icon {
+    margin-bottom: 10px;
+  }
+
+  .heatmap-day-labels {
+    flex-basis: 25px;
+    font-size: .55rem;
+  }
+
+  .consistency-heatmap {
+    gap: 3px;
+    grid-template-columns: repeat(12, 17px);
+    grid-template-rows: repeat(7, 17px);
+  }
+
+  .heatmap-cell {
+    height: 17px;
+    min-height: 17px;
+    min-width: 17px;
+    width: 17px;
+  }
+
+  .completed-workout-card {
+    gap: 12px;
+  }
+
+  .completed-workout-photo {
+    flex-basis: 92px;
+    width: 92px;
+  }
+
+  .completed-workout-content {
+    padding: 12px 12px 12px 0;
+  }
+
+  .completed-workout-card:not(.has-photo) .completed-workout-content {
+    padding-left: 12px;
+  }
+
+  .completed-workout-topline {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meal-history-card {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .meal-history-nutrition {
+    text-align: left;
+  }
+
+  .progress-chart-shell,
+  .progress-chart-shell canvas {
+    height: 220px !important;
+    min-height: 220px;
+  }
+}

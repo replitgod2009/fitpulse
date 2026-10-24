@@ -1,0 +1,42 @@
+{
+  "id": "standard",
+  "name": "Standard",
+  "emoji": "💪",
+  "tagline": "Clean, focused training",
+  "colors": {
+    "bg": "#080a0f",
+    "bg2": "#0d1118",
+    "panel": "#111721",
+    "panel2": "#171e2a",
+    "border": "#273446",
+    "text": "#f5f7fb",
+    "muted": "#9aa5b5",
+    "primary": "#c8ff45",
+    "primary2": "#9687ff",
+    "accent": "#6edcff",
+    "gradient": "linear-gradient(135deg, #c8ff45 0%, #6edcff 100%)"
+  },
+  "background": "default",
+  "labels": {
+    "welcome": "Welcome back",
+    "pointsLabel": "Points",
+    "streakLabel": "Streak",
+    "rankLabel": "Rank",
+    "questLabel": "Daily Quest",
+    "completeMessage": "Workout complete. Nicely done.",
+    "dayOneRank": "Beginner"
+  },
+  "ranks": [
+    { "minXP": 0, "name": "Beginner", "emoji": "⭐" },
+    { "minXP": 200, "name": "Mover", "emoji": "🔥" },
+    { "minXP": 600, "name": "Athlete", "emoji": "🏅" },
+    { "minXP": 1500, "name": "Champion", "emoji": "👑" }
+  ],
+  "exerciseNames": {
+    "cardio": "Cardio",
+    "strength": "Strength",
+    "hiit": "HIIT",
+    "yoga": "Yoga",
+    "core": "Core"
+  }
+}

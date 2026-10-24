@@ -1,5 +1,6 @@
 api.requireAuth();
 let weeklyChart;
+let dashboardUser = null;
 
 const GOAL_PLANS = {
   lose_weight: [
@@ -37,6 +38,13 @@ function removeSkeleton(el, value) {
   el.textContent = value;
 }
 
+function renderThemeRank(user) {
+  const target = document.querySelector('[data-theme-rank]');
+  if (!target || !user) return;
+  const rank = window.ThemeSystem?.getUserRank(Number(user.totalPoints) || 0) || { emoji: '⭐', name: 'Beginner' };
+  target.textContent = `${rank.emoji} ${rank.name}`;
+}
+
 async function loadDashboard() {
   try {
     const [user, workouts, activities] = await Promise.all([
@@ -45,13 +53,16 @@ async function loadDashboard() {
       api.get('/activities')
     ]);
 
+    dashboardUser = user;
     document.getElementById('userName').textContent = esc(user.name.split(' ')[0]);
+    renderThemeRank(user);
     document.getElementById('streakVal').textContent = user.streak || 0;
     document.getElementById('pointsVal').textContent = user.totalPoints || 0;
     document.getElementById('badgeCount').textContent = (user.badges || []).length;
 
     const today = new Date().toDateString();
-    const todayWorkouts = workouts.filter(w => new Date(w.date).toDateString() === today);
+    const completedWorkouts = workouts.filter(w => w.completed);
+    const todayWorkouts = completedWorkouts.filter(w => new Date(w.completedAt || w.date).toDateString() === today);
     const todayCal = todayWorkouts.reduce((s, w) => s + (w.totalCalories || 0), 0);
     const todayMin = todayWorkouts.reduce((s, w) => s + (w.totalDuration || 0), 0);
     const todayActivity = activities.find(a => new Date(a.date).toDateString() === today);
@@ -69,7 +80,7 @@ async function loadDashboard() {
     }
 
     renderRecommendations(user.fitnessGoal);
-    renderWeeklyChart(workouts);
+    renderWeeklyChart(completedWorkouts);
   } catch (err) {
     console.error(err);
   }
@@ -80,12 +91,14 @@ function renderRecommendations(goal) {
   const container = document.getElementById('recommendations');
   if (!container) return;
 
-  container.innerHTML = plan.map(ex => `
-    <div class="rec-card">
-      <h4>${esc(ex.name)}</h4>
-      <div class="meta">${esc(ex.category)} · ${ex.duration} min · ${ex.calories} kcal</div>
-    </div>
-  `).join('') + `
+  container.innerHTML = plan.map(ex => {
+    const category = window.ThemeSystem ? window.ThemeSystem.translateExercise(ex.category) : ex.category;
+    return `
+      <div class="rec-card">
+        <h4>${esc(ex.name)}</h4>
+        <div class="meta">${esc(category)} · ${ex.duration} min · ${ex.calories} kcal</div>
+      </div>`;
+  }).join('') + `
     <div class="rec-card" style="display:flex;align-items:center;justify-content:center;cursor:pointer;background:var(--gradient-soft);border-color:var(--primary)"
          onclick='useRecommendedPlan(${JSON.stringify(plan).replace(/'/g, "&#39;")}, ${JSON.stringify(goal)})'>
       <div style="text-align:center">
@@ -110,7 +123,7 @@ function renderWeeklyChart(workouts) {
     d.setDate(d.getDate() - i);
     days.push(d.toLocaleDateString('en', { weekday: 'short' }));
     const total = workouts
-      .filter(w => new Date(w.date).toDateString() === d.toDateString())
+      .filter(w => w.completed && new Date(w.completedAt || w.date).toDateString() === d.toDateString())
       .reduce((s, w) => s + (w.totalCalories || 0), 0);
     cals.push(total);
   }
@@ -157,10 +170,23 @@ document.getElementById('quickLogForm').addEventListener('submit', async (e) => 
       mood: document.getElementById('qMood').value
     });
     alert('Activity logged ✅');
+    window.dispatchEvent(new CustomEvent('fitpulse:activityLogged'));
     loadDashboard();
   } catch (err) {
     alert(err.message);
   }
+});
+
+window.addEventListener('themeApplied', () => {
+  if (dashboardUser) {
+    renderThemeRank(dashboardUser);
+    renderRecommendations(dashboardUser.fitnessGoal);
+  }
+});
+
+window.addEventListener('fitpulse:userUpdated', (event) => {
+  dashboardUser = event.detail || dashboardUser;
+  renderThemeRank(dashboardUser);
 });
 
 loadDashboard();

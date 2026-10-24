@@ -24,10 +24,11 @@ router.get('/', auth, (req, res) => {
 
 router.patch('/:id/complete', auth, (req, res) => {
   try {
-    const result = database.completeWorkout(req.user.id, req.params.id);
+    const result = database.completeWorkout(req.user.id, req.params.id, req.body || {});
     if (!result) return res.status(404).json({ msg: 'Workout not found' });
     res.json(result);
   } catch (error) {
+    if (error.statusCode) return res.status(error.statusCode).json({ msg: error.message });
     console.error(error);
     res.status(500).json({ msg: 'Could not complete workout' });
   }
